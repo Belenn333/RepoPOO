@@ -1,0 +1,29 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package semana02;
+
+
+/**
+ *
+ * @author USUARIO
+ */
+public class Ejemplo03 {
+     /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        int[] arreglo1 = new int[4];
+        
+        arreglo1[0] = 10;
+        arreglo1[1] = 1;
+        arreglo1[2] = 3;
+        arreglo1[3] = -8;
+        
+        for(int i=0; i<arreglo1.length; i++){
+            System.out.print(arreglo1[i] + "t");
+        }
+    }
+    
+}
