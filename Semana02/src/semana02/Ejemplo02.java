@@ -30,5 +30,10 @@ public class Ejemplo02 {
         System.out.println("Promedio Alumno 4: " + alumno4.calcularPromedio(6,4,2,1,1));
         System.out.println("===================");
         
+        // Cambio realizado en la PrimeraRama
+        Alumno alumno5 = new Alumno("Alumno 5", 20, 20, 20, 10, 10);
+        System.out.println("Promedio Alumno 5: " + alumno5.calcularPromedio(6,4,2,1,1));
+        System.out.println("===================");
+        
     }
 }
