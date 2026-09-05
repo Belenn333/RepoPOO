@@ -24,5 +24,11 @@ public class Ejemplo02 {
         Alumno alumno3 = new Alumno("Alumno 3", 0, 0, 0, 20, 20);
         System.out.println("Promedio Alumno 3: " + alumno3.calcularPromedio("ASISTENCIA"));
         System.out.println("===================");
+        
+        // primer commit
+        Alumno alumno4 = new Alumno("Alumno 4", 14, 16, 19, 10, 10);
+        System.out.println("Promedio Alumno 4: " + alumno4.calcularPromedio(6,4,2,1,1));
+        System.out.println("===================");
+        
     }
 }
