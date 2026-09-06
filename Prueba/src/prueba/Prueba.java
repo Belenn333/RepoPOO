@@ -14,7 +14,7 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here`r`n        System.out.println("Cambio realizado por Jesus");
+        // TODO code application logic here`r`n        System.out.println("Cambio realizado desde main");
     }
     
 }
