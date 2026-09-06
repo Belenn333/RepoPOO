@@ -20,18 +20,13 @@ public class Ejemplo03 {
         arreglo1[1] = 1;
         arreglo1[2] = 3;
         arreglo1[3] = -8;
-<<<<<<< HEAD
-        
-        
-        for(int i=0; i<arreglo1.length; i++){
-            // Cambio realizado: se agregó "\t" para separar los números con una tabulación.
-            System.out.print(arreglo1[i] + "/t");
-=======
+
 
         for (int i = 0; i < arreglo1.length; i++) {
             // Cambio realizado: se agregó "\t" para separar los números con una tabulación.
             System.out.print(arreglo1[i] + "\t");
->>>>>>> 4d2098eae05d304a5f4b3897acd160ed5c8ff405
+            //Resolucion de conflicto
+
         }
     }
     
