@@ -21,9 +21,12 @@ public class Ejemplo03 {
         arreglo1[2] = 3;
         arreglo1[3] = -8;
 
+
         for (int i = 0; i < arreglo1.length; i++) {
             // Cambio realizado: se agregó "\t" para separar los números con una tabulación.
             System.out.print(arreglo1[i] + "\t");
+            //Resolucion de conflicto
+
         }
     }
     
