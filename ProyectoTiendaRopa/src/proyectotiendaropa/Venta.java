@@ -38,8 +38,13 @@ public class Venta {
     }
 
     public void setSubtotal(double subtotal) {
+         // Mejora de Ivan: validar que el subtotal no sea negativo.
+    if (subtotal >= 0) {
         this.subtotal = subtotal;
+    } else {
+        System.out.println("Error: el subtotal no puede ser negativo.");
     }
+}
 
     public double getIgv() {
         return igv;
