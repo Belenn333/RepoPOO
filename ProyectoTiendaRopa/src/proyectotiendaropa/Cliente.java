@@ -15,6 +15,7 @@ public class Cliente {
     private String dni;
     private String telefono;
 
+    //Aplicando encapsulamiento con getters y setters
     public String getCodigo() {
         return codigo;
     }

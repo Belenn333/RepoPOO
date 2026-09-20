@@ -18,6 +18,7 @@ public class Ropa {
     private double precio;
     private int stock;
 
+    //Aplicando encapsulamiento con getters y setters
     public String getCodigo() {
         return codigo;
     }
