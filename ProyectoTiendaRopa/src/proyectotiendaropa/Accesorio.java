@@ -88,6 +88,20 @@ public class Accesorio {
     // Si encuentra coincidencia, muestra toda su informacion.
     public void buscar(String codigo) {
 
+        // Manejo de errores: verifica que el codigo de busqueda
+        // no sea nulo, vacio o formado solamente por espacios.
+        if (codigo == null || codigo.trim().isEmpty()) {
+            System.out.println("Error: ingrese un codigo para buscar.");
+            return;
+        }
+
+        // Manejo de errores: comprueba que el accesorio
+        // tenga un codigo asignado antes de buscar.
+        if (this.codigo == null || this.codigo.trim().isEmpty()) {
+            System.out.println("Error: el accesorio no tiene codigo asignado.");
+            return;
+        }
+
         // Verifica que exista un codigo asignado y compara los codigos
         // sin distinguir entre mayusculas y minusculas.
         if (this.codigo != null
@@ -95,6 +109,9 @@ public class Accesorio {
 
             // Muestra los datos del accesorio encontrado.
             mostrar();
+        } else {
+            // Informa cuando el codigo buscado no coincide.
+            System.out.println("No se encontro un accesorio con ese codigo.");
         }
     }
 
@@ -102,6 +119,26 @@ public class Accesorio {
     // Busca por nombre y cantidad minima disponible.
     // Si cumple ambos criterios, devuelve el stock del accesorio.
     public int buscar(String nombre, int stockMinimo) {
+
+        // Manejo de errores: verifica que el nombre de busqueda
+        // no sea nulo, vacio o formado solamente por espacios.
+        if (nombre == null || nombre.trim().isEmpty()) {
+            System.out.println("Error: ingrese un nombre para buscar.");
+            return -1;
+        }
+
+        // Manejo de errores: evita buscar con una cantidad negativa.
+        if (stockMinimo < 0) {
+            System.out.println("Error: el stock minimo no puede ser negativo.");
+            return -1;
+        }
+
+        // Manejo de errores: comprueba que el accesorio
+        // tenga un nombre asignado antes de buscar.
+        if (this.nombre == null || this.nombre.trim().isEmpty()) {
+            System.out.println("Error: el accesorio no tiene nombre asignado.");
+            return -1;
+        }
 
         // Verifica el nombre, la cantidad solicitada y el stock.
         if (this.nombre != null
@@ -111,6 +148,13 @@ public class Accesorio {
 
             // Devuelve la cantidad disponible.
             return this.stock;
+        }
+
+        // Informa la causa por la que no se obtuvo una coincidencia.
+        if (!this.nombre.equalsIgnoreCase(nombre)) {
+            System.out.println("No se encontro un accesorio con ese nombre.");
+        } else {
+            System.out.println("El accesorio no tiene suficiente stock.");
         }
 
         // Devuelve -1 si no se encuentra una coincidencia valida.
