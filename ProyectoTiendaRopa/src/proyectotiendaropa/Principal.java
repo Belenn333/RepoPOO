@@ -4,6 +4,10 @@
  */
 package proyectotiendaropa;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 /**
  *
  * @author USUARIO
@@ -14,7 +18,7 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       
     }
     
 }

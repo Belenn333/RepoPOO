@@ -115,4 +115,29 @@ public class Ropa {
         }
     }
     
+    //Método para registrar una nueva prenda
+    public void agregar(String codigo, String nombre,
+                        String talla, String categoria,
+                        String color, double precio,
+                        int stock){
+
+        //Verifica que el precio y el stock sean válidos
+        if(precio > 0 && stock >= 0){
+
+            this.codigo = codigo;
+            this.nombre = nombre;
+            this.talla = talla;
+            this.categoria = categoria;
+            this.color = color;
+            this.precio = precio;
+            this.stock = stock;
+
+            System.out.println("Prenda registrada correctamente.");
+        }
+        else{
+
+            System.out.println("Error: precio o stock inválido.");
+        }
+    }
+    
 }
