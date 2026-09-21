@@ -75,5 +75,44 @@ public class Ropa {
         this.stock = stock;
     }
     
+    //Metodo sin parámetros. Muestra toda la información de la prenda.
+    public void mostrar(){
+        System.out.println("Codigo: " + codigo);
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Talla: " + talla);
+        System.out.println("Categoria: " + categoria);
+        System.out.println("Color: " + color);
+        System.out.println("Precio: " + precio);
+        System.out.println("Stock: " + stock);
+    }
+    
+    //-----------APLICANDO SOBRECARGA DE METODOS ------------------
+    
+    //Método buscar(String codigo)
+    //Busca una prenda utilizando su código.
+    //Si encuentra coincidencia, muestra toda la información de la prenda mediante el método mostrar().
+    public void buscar(String codigo){
+
+        //Compara el código ingresado con el código de la prenda
+        if(this.codigo.equalsIgnoreCase(codigo)){
+
+            //Muestra los datos de la prenda encontrada
+            mostrar();
+        }
+    }
+    
+    //Método sobrecargado buscar(String nombre, String color)
+    //Busca una prenda utilizando dos criterios: nombre y color. Si ambos coinciden,
+    //se muestran los datos de la prenda.
+    public void buscar(String nombre, String color){
+
+        //Verifica que el nombre y el color coincidan
+        if(this.nombre.equalsIgnoreCase(nombre)
+                && this.color.equalsIgnoreCase(color)){
+
+            //Muestra los datos de la prenda encontrada
+            mostrar();
+        }
+    }
     
 }
