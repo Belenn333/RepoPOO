@@ -18,6 +18,13 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        //ArrayList que almacena todas las prendas registradas
+        ArrayList<Ropa> listaRopa = new ArrayList<>();
+        
+        //Solicita el código de la nueva prenda
+        Scanner teclado = new Scanner(System.in);
+
        
     }
     
