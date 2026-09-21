@@ -56,4 +56,18 @@ public class Venta {
     public void setTotal(double total) {
         this.total = total;
     }
+    
+   // Primera version del metodo calcularTotal: recibe el subtotal.
+   // Calcula el total de la venta incluyendo el IGV del 18%.
+    public double calcularTotal(double subtotal){
+        return subtotal +(subtotal*0.18);
+    }
+    
+    // Segunda version del metodo calcularTotal: recibe subtotal y descuento.
+    // Aplica sobrecarga porque tiene el mismo nombre y distintos parametros.
+    // Calcula el total incluyendo el IGV y aplicando un descuento.
+    public double calcularTotal(double subtotal, double descuento ){
+        double totalConIgv = subtotal + (subtotal * 0.18);
+        return totalConIgv - descuento;
+    }
 }
