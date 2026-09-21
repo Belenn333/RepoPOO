@@ -47,5 +47,15 @@ public class Cliente {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+    // Sobrecarga de métodos para buscar clientes por diferentes criterios
+public boolean buscar(String codigo) {
+    return this.codigo != null && this.codigo.equals(codigo);
+}
 
+public boolean buscar(String codigo, String nombre) {
+    return this.codigo != null
+            && this.codigo.equals(codigo)
+            && this.nombre != null
+            && this.nombre.equalsIgnoreCase(nombre);
+}
 }
