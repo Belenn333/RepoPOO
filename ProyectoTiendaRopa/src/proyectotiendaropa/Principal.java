@@ -4,17 +4,18 @@
  */
 package proyectotiendaropa;
 
-/**
- *
- * @author USUARIO
- */
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Principal {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        // ArrayList que almacena los accesorios registrados.
+        ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
+
+        // Permite ingresar datos del nuevo accesorio.
+        Scanner teclado = new Scanner(System.in);
     }
-    
 }
