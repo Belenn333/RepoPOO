@@ -36,9 +36,14 @@ public class Venta {
     public double getSubtotal() {
         return subtotal;
     }
-
+    
+    //Validación para evitar valores negativos en el subtotal
     public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+        if (subtotal >= 0) {
+            this.subtotal = subtotal;
+        }else {
+            System.out.println("Error: El subtotal no puede ser negativo. ");
+        }
     }
 
     public double getIgv() {
@@ -70,4 +75,22 @@ public class Venta {
         double totalConIgv = subtotal + (subtotal * 0.18);
         return totalConIgv - descuento;
     }
+    // Metodo para registrar los datos de una venta
+public void registrarVenta(String codigoVenta, String fecha,
+                           double subtotal, double igv) {
+
+    // Verifica que el subtotal y el IGV sean valores validos
+    if (subtotal >= 0 && igv >= 0) {
+        this.codigoVenta = codigoVenta;
+        this.fecha = fecha;
+        this.subtotal = subtotal;
+        this.igv = igv;
+        this.total = subtotal + igv;
+
+        System.out.println("Venta registrada correctamente.");
+    } else {
+        System.out.println("Error: subtotal o IGV invalido.");
+    }
+    
+   }
 }
