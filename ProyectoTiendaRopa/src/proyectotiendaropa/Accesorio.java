@@ -17,7 +17,7 @@ public class Accesorio {
     private double precio;
     private int stock;
 
-    // Metodo de acceso al codigo del accesorio.
+    // Metodo de acceso al codigo que identifica al accesorio.
     public String getCodigo() {
         return codigo;
     }
