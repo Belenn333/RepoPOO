@@ -11,6 +11,8 @@ import java.util.Scanner;
 public class Principal {
 
     public static void main(String[] args) {
+        // ArrayList que almacena los clientes registrados
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
 
         // ArrayList que almacena los accesorios registrados.
         ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
