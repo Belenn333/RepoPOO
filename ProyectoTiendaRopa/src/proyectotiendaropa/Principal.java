@@ -5,23 +5,23 @@
 package proyectotiendaropa;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author USUARIO
- */
 public class Principal {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         
         //ArrayList que almacena todas las prendas registradas
         ArrayList<Ropa> listaRopa = new ArrayList<>();
-        
-        //Solicita el código de la nueva prenda
+      
+        // ArrayList que almacena los clientes registrados
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+
+        // ArrayList que almacena los accesorios registrados.
+        ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
+
+        // Permite ingresar datos
         Scanner teclado = new Scanner(System.in);
         
         int opcion;
@@ -130,6 +130,7 @@ public class Principal {
             }
         }while(opcion != 5);
 
-        teclado.close();
-    }                     
+        teclado.close();                 
+        
+    }
 }
