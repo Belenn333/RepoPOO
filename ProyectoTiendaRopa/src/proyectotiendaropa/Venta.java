@@ -76,21 +76,21 @@ public class Venta {
         return totalConIgv - descuento;
     }
     // Metodo para registrar los datos de una venta
-public void registrarVenta(String codigoVenta, String fecha,
-                           double subtotal, double igv) {
+    public void registrarVenta(String codigoVenta, String fecha,
+                               double subtotal, double igv) {
 
-    // Verifica que el subtotal y el IGV sean valores validos
-    if (subtotal >= 0 && igv >= 0) {
-        this.codigoVenta = codigoVenta;
-        this.fecha = fecha;
-        this.subtotal = subtotal;
-        this.igv = igv;
-        this.total = subtotal + igv;
+        // Verifica que el subtotal y el IGV sean valores validos
+        if (subtotal >= 0 && igv >= 0) {
+            this.codigoVenta = codigoVenta;
+            this.fecha = fecha;
+            this.subtotal = subtotal;
+            this.igv = igv;
+            this.total = subtotal + igv;
 
-        System.out.println("Venta registrada correctamente.");
-    } else {
-        System.out.println("Error: subtotal o IGV invalido.");
-    }
-    
-   }
+            System.out.println("Venta registrada correctamente.");
+        } else {
+            System.out.println("Error: subtotal o IGV invalido.");
+        }
+
+      }
 }
