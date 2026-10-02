@@ -5,7 +5,6 @@
 package proyectotiendaropa;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -29,12 +28,23 @@ public class Principal {
         do {
 
             System.out.println("\n=== MENU TIENDA DE ROPA ===");
+            System.out.println("\n=== MODULO ROPA ===");
             System.out.println("1. Registrar prenda");
             System.out.println("2. Mostrar prendas");
             System.out.println("3. Buscar por codigo");
             System.out.println("4. Buscar por nombre y color");
-            System.out.println("5. Salir");
-
+            System.out.println("5. Consultar stock");
+            System.out.println("6. Modificar prenda");
+            System.out.println("7. Eliminar prenda");
+            System.out.println("\n=== MODULO CLIENTES ===");
+            System.out.println("8. Registrar cliente");
+            System.out.println("9. Modificar cliente");
+            System.out.println("10. Buscar cliente por __");
+            System.out.println("11. Listar cliente");
+            System.out.println("12. Elimininar cliente");
+            System.out.println("13. Salir");
+            
+            System.out.println("------------------");
             System.out.print("Ingrese opcion: ");
             opcion = teclado.nextInt();
             teclado.nextLine();
@@ -47,22 +57,22 @@ public class Principal {
 
                     do{       
                         //------------ VALIDACION DE AGREGAR------------------
-                        // Solicita el código de la nueva prenda
+                        //Solicita el código de la nueva prenda
                         System.out.print("Codigo: ");
                         String codigo = teclado.nextLine();
                         //Variable que permite verificar si el código de clase Ropa ya existe
                         boolean existe = false;
 
-                        // Recorre el ArrayList para validar que el código sea único
+                        //Recorre el ArrayList para validar que el código sea único
                         for(Ropa r : listaRopa){
 
-                            // Compara el código ingresado con los códigos ya registrados
+                            //Compara el código ingresado con los códigos ya registrados
                             if(r.getCodigo().equalsIgnoreCase(codigo)){
 
-                                // Si encuentra coincidencia, marca el código como existente
+                                //Si encuentra coincidencia, marca el código como existente
                                 existe = true;
 
-                                // Finaliza el recorrido
+                                //Finaliza el recorrido
                                 break;
                             }
                         }
@@ -127,8 +137,175 @@ public class Principal {
                     }while(respuesta.equalsIgnoreCase("S"));
                     break;
                 }
+                case 2: {
+                    //Verifica si existen prendas registradas               
+                    if(listaRopa.isEmpty()){
+                        System.out.println("-------------------");
+                        System.out.println("No hay prendas registradas.");
+                    }
+                    else{
+                        //Recorre y muestra todas las prendas registradas
+                        for(Ropa r : listaRopa){
+                            System.out.println("-------------------");
+                            r.mostrar();
+                        }
+                    }
+                    break;
+                }
+                
+                case 3: {
+                    //Solicita el código de la prenda a buscar
+                    System.out.print("Ingrese codigo: ");
+                    String codigoBuscado = teclado.nextLine();
+                    
+                    //Variable que indica si se encontró la prenda
+                    //Se inicializa en false
+                    boolean encontrado = false;
+
+                    //Se recorre todas las prendas registradas
+                    for(Ropa r : listaRopa){
+                        //Compara el código ingresado con el código de la prenda
+                        if(r.getCodigo().equalsIgnoreCase(codigoBuscado)){
+                            System.out.println("-------------------");
+                            //Llama al método buscar de la clase Ropa
+                            r.buscar(codigoBuscado);
+                            //Marca la prenda como encontrada
+                            encontrado = true;
+                        }
+                    }
+                    //Si no se encontró ninguna coincidencia, muestra un mensaje
+                    if(!encontrado){
+                        System.out.println("-------------------");
+                        System.out.println("Prenda no encontrada.");
+                        System.out.println("-------------------");
+                    }
+                    break;
+                }
+                case 4: {
+                    //Solicita el nombre de la prenda
+                    System.out.print("Nombre: ");
+                    String nombreBuscado = teclado.nextLine();
+
+                    //Solicita el color de la prenda
+                    System.out.print("Color: ");
+                    String colorBuscado = teclado.nextLine();
+
+                    //Variable que indica si se encontró una coincidencia
+                    boolean existePrenda = false;
+
+                    for(Ropa r : listaRopa){
+                        if(r.getNombre().equalsIgnoreCase(nombreBuscado)
+                                && r.getColor().equalsIgnoreCase(colorBuscado)){
+                            System.out.println("-------------------");
+                            //Llama al método sobrecargado buscar(nombre, color)
+                            r.buscar(nombreBuscado, colorBuscado);
+                            existePrenda = true;
+                        }
+                    }
+
+                    if(!existePrenda){
+                        System.out.println("-------------------");
+                        System.out.println("Prenda no encontrada.");
+                        System.out.println("-------------------");
+                    }
+                    break;
+                }
+                case 5: {
+
+                    //Solicita el código de la prenda
+                    System.out.print("Ingrese codigo: ");
+                    String cod = teclado.nextLine();
+                    
+                    //Variable para verificar si la prenda existe
+                    boolean existe = false;
+
+                    //Recorre la lista de prendas
+                    for(Ropa r : listaRopa){
+
+                        //Compara el código ingresado con el código registrado
+                        if(r.getCodigo().equalsIgnoreCase(cod)){
+
+                            //Muestra la cantidad disponible en stock
+                            System.out.println("Stock disponible: "
+                                    + r.getStock());
+
+                            //Marca la prenda como encontrada
+                            existe = true;
+                        }
+                    }
+                    
+                    //Si no se encontró la prenda
+                    if(!existe){
+                        System.out.println("-------------------");
+                        System.out.println("Prenda no encontrada.");
+                        System.out.println("-------------------");
+                    }
+
+                    break;
+                }
+                case 6: {
+
+                    System.out.print("Codigo de la prenda: ");
+                    String codigoMod = teclado.nextLine();
+
+                    boolean modificada = false;
+                    //Recorre la lista de prendas
+                    for(Ropa r : listaRopa){
+
+                        if(r.getCodigo().equalsIgnoreCase(codigoMod)){
+
+                            System.out.print("Nuevo precio: ");
+                            double nuevoPrecio = teclado.nextDouble();
+
+                            System.out.print("Nuevo stock: ");
+                            int nuevoStock = teclado.nextInt();
+                            teclado.nextLine();
+
+                            r.setPrecio(nuevoPrecio);
+                            r.setStock(nuevoStock);
+
+                            System.out.println("Prenda modificada.");
+
+                            modificada = true;
+                        }
+                    }
+                    
+                    if(!modificada){
+                        System.out.println("Prenda no encontrada.");
+                    }
+
+                    break;
+                }
+                case 7: {
+                    //Solicita el código de la prenda que se desea eliminar
+                    System.out.print("Codigo a eliminar: ");
+                    String codigoEliminar = teclado.nextLine();
+                    //Variable que indica si la prenda fue eliminada
+                    boolean eliminada = false;
+
+                    //Recorre la lista de prendas registradas
+                    for(int i = 0; i < listaRopa.size(); i++){
+                        //Compara el código ingresado con el código de la prenda
+                        if(listaRopa.get(i).getCodigo().equalsIgnoreCase(codigoEliminar)){
+                            //Elimina la prenda encontrada del ArrayList
+                            listaRopa.remove(i);
+                            //Marca la prenda como eliminada
+                            eliminada = true;
+                            
+                            System.out.println("-------------------");
+                            System.out.println("Prenda eliminada.");
+                            break;
+                        }
+                    }
+                    //Si no se encontró la prenda, muestra un mensaje de error
+                    if(!eliminada){
+                        System.out.println("-------------------");
+                        System.out.println("Prenda no encontrada.");
+                    }
+                    break;
+                }
             }
-        }while(opcion != 5);
+        }while(opcion != 8);
 
         teclado.close();                 
         
