@@ -9,6 +9,7 @@ package proyectotiendaropa;
  * @author USUARIO
  */
 public class Cliente {
+
     //Declaracion de atributos Clase Cliente
     private String codigo;
     private String nombre;
@@ -47,6 +48,31 @@ public class Cliente {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    // Registra los datos de un cliente
+    public void agregar(String codigo, String nombre, String dni, String telefono) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.dni = dni;
+        this.telefono = telefono;
+    }
+
+    // Modifica los datos de un cliente
+    public void modificar(String nombre, String dni, String telefono) {
+        this.nombre = nombre;
+        this.dni = dni;
+        this.telefono = telefono;
+
+    }
+    // Elimina los datos de un cliente
+
+    public void eliminar() {
+        this.codigo = null;
+        this.nombre = null;
+        this.dni = null;
+        this.telefono = null;
+    }
+
     // Método sin parámetros. Muestra toda la información del cliente.
     public void mostrar() {
         System.out.println("Codigo: " + codigo);
@@ -56,7 +82,6 @@ public class Cliente {
     }
 
     // Sobrecarga de métodos para buscar clientes por diferentes criterios
-
     // Primera versión del método buscar: recibe un código.
     public void buscar(String codigo) {
         if (this.codigo != null && this.codigo.equalsIgnoreCase(codigo)) {
