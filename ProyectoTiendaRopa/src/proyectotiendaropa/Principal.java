@@ -313,48 +313,61 @@ public class Principal {
                     break;
                 }
                 case 8: {
-                    System.out.println("\n=== REGISTRAR CLIENTE ===");
 
-                    System.out.print("Codigo: ");
-                    String codigo = teclado.nextLine();
+                    String respuesta;
 
-                    // Verifica que el codigo no este repetido
-                    boolean existe = false;
+                    do{
 
-                    for (Cliente c : listaClientes) {
-                        if (c.getCodigo().equalsIgnoreCase(codigo)) {
-                            existe = true;
-                            break;
+                        System.out.println("\n=== REGISTRAR CLIENTE ===");
+
+                        System.out.print("Codigo: ");
+                        String codigo = teclado.nextLine();
+
+                        // Verifica que el codigo no este repetido
+                        boolean existe = false;
+
+                        for (Cliente c : listaClientes) {
+                            if (c.getCodigo().equalsIgnoreCase(codigo)) {
+                                existe = true;
+                                break;
+                            }
                         }
-                    }
 
-                    if (existe) {
-                        System.out.println("Error: el codigo del cliente ya existe.");
-                        break;
-                    }
+                        if (existe) {
+                            System.out.println("Error: el codigo del cliente ya existe.");
+                        }
+                        else{
 
-                    System.out.print("Nombre: ");
-                    String nombre = teclado.nextLine();
+                            System.out.print("Nombre: ");
+                            String nombre = teclado.nextLine();
 
-                    System.out.print("DNI: ");
-                    String dni = teclado.nextLine();
+                            System.out.print("DNI: ");
+                            String dni = teclado.nextLine();
 
-                    System.out.print("Telefono: ");
-                    String telefono = teclado.nextLine();
+                            System.out.print("Telefono: ");
+                            String telefono = teclado.nextLine();
 
-                    // Crea el objeto Cliente
-                    Cliente cliente = new Cliente();
+                            // Crea el objeto Cliente
+                            Cliente cliente = new Cliente();
 
-                    // Registra los datos del cliente
-                    cliente.agregar(codigo, nombre, dni, telefono);
+                            // Registra los datos del cliente
+                            cliente.agregar(codigo, nombre, dni, telefono);
 
-                    // Valida los datos ingresados
-                    if (cliente.validarDatos()) {
-                        listaClientes.add(cliente);
-                        System.out.println("Cliente registrado correctamente.");
-                    } else {
-                        System.out.println("Error: los datos ingresados no son validos.");
-                    }
+                            // Valida los datos ingresados
+                            if (cliente.validarDatos()) {
+                                listaClientes.add(cliente);
+                                System.out.println("Cliente registrado correctamente.");
+                            } 
+                            else {
+                                System.out.println("Error: los datos ingresados no son validos.");
+                            }
+                        }
+
+                        // Pregunta si desea registrar otro cliente
+                        System.out.print("¿Desea registrar otro cliente? (S/N): ");
+                        respuesta = teclado.nextLine();
+
+                    }while(respuesta.equalsIgnoreCase("S"));
 
                     break;
                 }
@@ -382,7 +395,7 @@ public class Principal {
 
                             System.out.println("Cliente modificado correctamente.");
                             modificado = true;
-                            break;
+                            
                         }
                     }
 
@@ -419,7 +432,6 @@ public class Principal {
                                 c.buscar(codigoBuscado);
 
                                 encontrado = true;
-                                break;
                             }
                         }
 
@@ -442,13 +454,12 @@ public class Principal {
                                 c.buscar(nombreBuscado, dniBuscado);
 
                                 encontrado = true;
-                                break;
                             }
                         }
 
-                    } else {
+                    } 
+                    else {
                         System.out.println("Opcion no valida.");
-                        break;
                     }
 
                     if (!encontrado) {
@@ -493,14 +504,13 @@ public class Principal {
                             listaClientes.remove(i);
 
                             System.out.println("Cliente eliminado correctamente.");
-                            eliminado = true;
-                            break;
+                            eliminado = true;                      
                         }
-                      teclado.close();
+                    }
+                    teclado.close();
                     if (!eliminado) {
                         System.out.println("Cliente no encontrado.");
                     }
-
                     break;
                 }
                 // RF13. Registrar accesorios.
@@ -519,7 +529,6 @@ public class Principal {
                         for(Accesorio a : listaAccesorios){
                             if(a.getCodigo().equalsIgnoreCase(codigo)){
                                 existe = true;
-                                break;
                             }
                         }
 
@@ -611,7 +620,6 @@ public class Principal {
                                         "Error: precio mayor a cero "
                                         + "y stock no negativo.");
                             }
-                          break;
                         }
                     }
                           
@@ -640,7 +648,6 @@ public class Principal {
 
                             System.out.println("-------------------");
                             System.out.println("Accesorio eliminado.");
-                            break;
                         }
                     }
 
@@ -669,14 +676,15 @@ public class Principal {
                             // Utiliza el metodo existente en Accesorio.
                             a.buscar(codigoBuscado);
                             encontrado = true;
-                            break;
                         }
                     }
 
                     if(!encontrado){
                         System.out.println("-------------------");
                         System.out.println("Accesorio no encontrado.");
-                
+                    }
+                    break;
+                }
 
                 // RF17. Buscar accesorios por nombre.
                 case 17: {
@@ -721,8 +729,8 @@ public class Principal {
                                     "Stock disponible: " + a.getStock());
 
                             existe = true;
-                
-
+                        }       
+                    }
                     if(!existe){
                         System.out.println("-------------------");
                         System.out.println("Accesorio no encontrado.");
@@ -745,8 +753,6 @@ public class Principal {
                             a.mostrar();
                         }
                     }
-
-                    break;
                 }
 
                 case 20: {
