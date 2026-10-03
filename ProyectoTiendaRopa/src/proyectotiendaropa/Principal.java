@@ -42,7 +42,7 @@ public class Principal {
             System.out.println("\n=== MODULO CLIENTES ===");
             System.out.println("8. Registrar cliente");
             System.out.println("9. Modificar cliente");
-            System.out.println("10. Buscar cliente por __");
+            System.out.println("10. Buscar cliente por codigo o nombre");
             System.out.println("11. Listar cliente");
             System.out.println("12. Elimininar cliente");
             System.out.println("\n=== MODULO ACCESORIOS ===");
