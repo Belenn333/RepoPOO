@@ -12,7 +12,6 @@ import proyectotiendaropa.vistaAccesorio.ModificarAccesorio;
 import proyectotiendaropa.vistaAccesorio.ListaAccesorio;
 import proyectotiendaropa.vistaCliente.ListaCliente;
 import proyectotiendaropa.vistaCliente.RegistrarCliente;
-import proyectotiendaropa.vistaventa.ListaVenta;
 import proyectotiendaropa.vistaventa.RegistrarVenta;
 
 /**
@@ -211,8 +210,6 @@ public class Menu extends javax.swing.JFrame {
 
     private void opListaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opListaVentaActionPerformed
         // TODO add your handling code here:
-        new ListaVenta().setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_opListaVentaActionPerformed
 
     /**
