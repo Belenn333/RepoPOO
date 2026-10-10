@@ -27,30 +27,30 @@ public class ListaPrenda extends javax.swing.JFrame {
         initComponents();
         
         // Centrar contenido de todas las columnas
-        DefaultTableCellRenderer centro =
-                new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centro = new DefaultTableCellRenderer();
 
-        centro.setHorizontalAlignment(
-                SwingConstants.CENTER);
+        centro.setHorizontalAlignment(SwingConstants.CENTER);
 
         for(int i = 0; i < tbPrenda.getColumnCount(); i++){
-            tbPrenda.getColumnModel()
-                    .getColumn(i)
-                    .setCellRenderer(centro);
+            tbPrenda.getColumnModel().getColumn(i).setCellRenderer(centro);
         }
         
         cargarPrendas();
+        
+        //Centra la ventana en la pantalla
+        setLocationRelativeTo(null);
     }
     
+    //Carga el listado en la tabla
     private void cargarPrendas(){
 
         DefaultTableModel modelo =
                 (DefaultTableModel) tbPrenda.getModel();
 
-        // Limpia la tabla
+        //Limpia la tabla
         modelo.setRowCount(0);
 
-        // Recorre la lista de prendas
+        //Recorre la lista de prendas
         for(Ropa r : Principal.listaRopa){
 
             modelo.addRow(
@@ -300,15 +300,13 @@ public class ListaPrenda extends javax.swing.JFrame {
 
             boolean coincide = false;
 
-            // Utiliza el método sobrecargado buscar(String codigo)
+            //Utiliza el método sobrecargado buscar(String codigo)
             if(!codigo.isEmpty()){
-
                 coincide = r.buscar(codigo);
             }
 
             // Utiliza el método sobrecargado buscar(String nombre, String color)
             else if(!nombre.isEmpty() && !color.isEmpty()){
-
                 coincide = r.buscar(nombre, color);
             }
 
@@ -340,22 +338,34 @@ public class ListaPrenda extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
+        RegistrarPrenda frm = new RegistrarPrenda();
+        frm.setVisible(true);
+        
+        //Cierra la ventana actual
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        ModificarPrenda frm = new ModificarPrenda();
+        frm.setVisible(true);
         
+        //Cierra la ventana actual
+        this.dispose();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
         //Limpia todos los campos del formulario
-            txtCodigo.setText("");
-            txtNombre.setText("");
-            txtColor.setText("");
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtColor.setText("");
 
-            //Coloca el cursor en el primer campo
-            txtCodigo.requestFocus();
+        //Restaura el listado completo de prendas
+        cargarPrendas();
+
+        //Coloca el cursor en el primer campo
+        txtCodigo.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**

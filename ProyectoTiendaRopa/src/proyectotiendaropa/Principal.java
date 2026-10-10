@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package proyectotiendaropa;
 
-import proyectotiendaropa.vistaPrenda.RegistrarPrenda;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -14,12 +10,28 @@ import java.util.Scanner;
 public class Principal {
     
     public static ArrayList<Ropa> listaRopa = new ArrayList<>();
+  
+    // Lista compartida para el modulo Accesorios y sus formularios.
+    public static ArrayList<Accesorio> listaAccesorios = new ArrayList<>();
+    
     public static ArrayList<Cliente> listaClientes = new ArrayList<>();
+    
+    
+    public static ArrayList<Venta> listaVentas = new ArrayList<>();
+
+    // Permite cargar el TXT una sola vez al abrir los formularios.
+    private static boolean accesoriosCargados = false;
+
+    public static void asegurarCargaAccesorios() {
+        if (!accesoriosCargados) {
+            cargarAccesorios();
+        }
+    }
     
     public static void guardarTodasLasPrendas() {
 
         try {
-
+          
             FileWriter archivo = new FileWriter("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt");
 
             for(Ropa r : listaRopa){
@@ -43,21 +55,20 @@ public class Principal {
     }
     
     public static void cargarPrendas() {
+              try {
 
-        try {
+                  BufferedReader lector =
+                        new BufferedReader(new FileReader("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt"));
 
-            BufferedReader lector =
-                    new BufferedReader(new FileReader("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt"));
+                  String linea; 
+                
+                  while((linea = lector.readLine()) != null){
 
-            String linea;
+                  String[] datos = linea.split(";");
 
-            while((linea = lector.readLine()) != null){
-
-                String[] datos = linea.split(";");
-
-                Ropa ropa = new Ropa();
-
-                ropa.agregar(
+                  Ropa ropa = new Ropa();
+                    
+                                 ropa.agregar(
                         datos[0], // codigo
                         datos[1], // nombre
                         datos[2], // talla
@@ -78,58 +89,145 @@ public class Principal {
         }
     }
 
+    // Guarda los cinco atributos de todos los accesorios en un archivo TXT.
+    public static void guardarTodosLosAccesorios() {
+
+        try {
+            // Ruta relativa al proyecto de NetBeans, evita usar rutas de otra PC.
+            File archivoAccesorios = new File("src/TXTs/accesorios.txt");
+            File carpeta = archivoAccesorios.getParentFile();
+
+            if (!carpeta.exists()) {
+                carpeta.mkdirs();
+            }
+            FileWriter archivo = new FileWriter(archivoAccesorios);
+
+            for (Accesorio a : listaAccesorios) {
+                archivo.write(
+                        a.getCodigo() + ";" +
+                        a.getNombre() + ";" +
+                        a.getColor() + ";" +
+                        a.getPrecio() + ";" +
+                        a.getStock() + "\n"
+                );
+            }
+
+            archivo.close();
+        } catch (Exception e) {
+            System.out.println("Error al guardar los accesorios: " + e.getMessage());
+        }
+    }
+
+    // Recupera los accesorios guardados cuando se inicia el programa.
+    public static void cargarAccesorios() {
+        accesoriosCargados = true;
+
+        File archivoAccesorios = new File("src/TXTs/accesorios.txt");
+      
+        if (!archivoAccesorios.exists()) {
+            return; // La primera vez todavia no existe el TXT.
+        }
+
+        try {
+            BufferedReader lector = new BufferedReader(new FileReader(archivoAccesorios));
+            String linea;
+
+            listaAccesorios.clear();
+
+            while ((linea = lector.readLine()) != null) {
+                String[] datos = linea.split(";", -1);
+
+                if (datos.length == 5) {
+                    try {
+                        Accesorio accesorio = new Accesorio();
+                  
+                        if (accesorio.agregar(
+                                datos[0], // codigo
+                                datos[1], // nombre
+                                datos[2], // color
+                                Double.parseDouble(datos[3]),
+                                Integer.parseInt(datos[4]))) {
+
+                            listaAccesorios.add(accesorio);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Registro de accesorio no valido: " + linea);
+                    }
+                }
+            }
+
+            lector.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al cargar los accesorios: " + e.getMessage());
+        }
+    }
+
+    // Presenta los datos en consola utilizando los getters de Ropa.
+    // Compatible con la clase Ropa que usan los formularios de NetBeans.
+    private static void mostrarPrendaEnConsola(Ropa r) {
+        System.out.println("Codigo: " + r.getCodigo());
+        System.out.println("Nombre: " + r.getNombre());
+        System.out.println("Talla: " + r.getTalla());
+        System.out.println("Categoria: " + r.getCategoria());
+        System.out.println("Color: " + r.getColor());
+        System.out.println("Precio: " + r.getPrecio());
+        System.out.println("Stock: " + r.getStock());
+    }
+      
+
     public static void main(String[] args) {
 
         //ArrayList que almacena todas las prendas registradas
-        //ArrayList<Ropa> listaRopa = new ArrayList<>();
+        ArrayList<Ropa> listaRopa = new ArrayList<>();
 
         // ArrayList que almacena los clientes registrados
         
 
-        // ArrayList que almacena los accesorios registrados.
+        //ArrayList que almacena los accesorios registrados
         ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
+        
+        //ArrayList que almacena las ventas registradas
+        ArrayList<Venta> listaVentas = new ArrayList<>();
+
+        //Permite ingresar datos
+        Scanner teclado = new Scanner(System.in);
+
+        // ArrayList que almacena los accesorios registrados.
+        // La lista compartida de accesorios se declara al inicio de Principal.
+        // Lista de ventas conservada del modulo de main.
+        //ArrayList<Venta> listaVentas = new ArrayList<>();
 
         //Para que cargue primero el txt
         cargarPrendas();
+        cargarAccesorios();
         
         //Inicializamos el Menu
         Menu menu = new Menu();
         menu.setVisible(true);
         
-        //Inicializamos el formulario Registrar Prenda
-        RegistrarPrenda formRegistrarPrenda = new RegistrarPrenda();
-        
-        // Permite ingresar datos
-        Scanner teclado = new Scanner(System.in);
+        //Permite ingresar datos
+        //Scanner teclado = new Scanner(System.in);
 
         int opcion;
 
         do {
 
-            System.out.println("\n=== MENU TIENDA DE ROPA ===");
-            System.out.println("\n=== MODULO ROPA ===");
-            System.out.println("1. Registrar prenda");
-            System.out.println("2. Mostrar prendas");
-            System.out.println("3. Buscar por codigo");
-            System.out.println("4. Buscar por nombre y color");
-            System.out.println("5. Consultar stock");
-            System.out.println("6. Modificar prenda");
-            System.out.println("7. Eliminar prenda");
+            
             System.out.println("\n=== MODULO CLIENTES ===");
             System.out.println("8. Registrar cliente");
             System.out.println("9. Modificar cliente");
-            System.out.println("10. Buscar cliente por __");
+            System.out.println("10. Buscar cliente por codigo o nombre");
             System.out.println("11. Listar cliente");
             System.out.println("12. Elimininar cliente");
-            System.out.println("\n=== MODULO ACCESORIOS ===");
-            System.out.println("13. Registrar accesorio");
-            System.out.println("14. Modificar accesorio");
-            System.out.println("15. Eliminar accesorio");
-            System.out.println("16. Buscar accesorio por codigo");
-            System.out.println("17. Buscar accesorio por nombre");
-            System.out.println("18. Consultar stock de accesorio");
-            System.out.println("19. Listar accesorios registrados");
-            System.out.println("20. Salir");
+            
+            System.out.println("\n=== MODULO VENTAS ===");
+            System.out.println("20. Registrar venta");
+            System.out.println("21. Consultar ventas realizadas");
+            System.out.println("22. Buscar venta por codigo");
+            System.out.println("23. Mostrar detalle de venta");
+            System.out.println("24. Generar comprobante de venta");
+            System.out.println("25. Salir");
             
             System.out.println("------------------");
             System.out.print("Ingrese opcion: ");
@@ -138,34 +236,7 @@ public class Principal {
 
             switch (opcion) {
 
-                case 7: {
-                    //Solicita el código de la prenda que se desea eliminar
-                    System.out.print("Codigo a eliminar: ");
-                    String codigoEliminar = teclado.nextLine();
-                    //Variable que indica si la prenda fue eliminada
-                    boolean eliminada = false;
-
-                    //Recorre la lista de prendas registradas
-                    for (int i = 0; i < listaRopa.size(); i++) {
-                        //Compara el código ingresado con el código de la prenda
-                        if (listaRopa.get(i).getCodigo().equalsIgnoreCase(codigoEliminar)) {
-                            //Elimina la prenda encontrada del ArrayList
-                            listaRopa.remove(i);
-                            //Marca la prenda como eliminada
-                            eliminada = true;
-
-                            System.out.println("-------------------");
-                            System.out.println("Prenda eliminada.");
-                            break;
-                        }
-                    }
-                    //Si no se encontró la prenda, muestra un mensaje de error
-                    if (!eliminada) {
-                        System.out.println("-------------------");
-                        System.out.println("Prenda no encontrada.");
-                    }
-                    break;
-                }
+                
                 case 8: {
 
                     String respuesta;
@@ -361,262 +432,19 @@ public class Principal {
                             eliminado = true;                      
                         }
                     }
-                    
                     if (!eliminado) {
                         System.out.println("Cliente no encontrado.");
                     }
                     break;
                 }
-                // RF13. Registrar accesorios.
-                case 13: {
-
-                    String respuesta;
-
-                    do {
-                        // Solicita el codigo del nuevo accesorio.
-                        System.out.print("Codigo: ");
-                        String codigo = teclado.nextLine();
-
-                        // Verifica si el codigo ya existe.
-                        boolean existe = false;
-
-                        for(Accesorio a : listaAccesorios){
-                            if(a.getCodigo().equalsIgnoreCase(codigo)){
-                                existe = true;
-                            }
-                        }
-
-                        if(codigo.trim().isEmpty()){
-                            System.out.println("Error: el codigo es obligatorio.");
-                        }
-                        else if(!existe){
-
-                            System.out.print("Nombre: ");
-                            String nombre = teclado.nextLine();
-
-                            System.out.print("Precio: ");
-                            double precio = teclado.nextDouble();
-
-                            System.out.print("Stock: ");
-                            int stock = teclado.nextInt();
-                            teclado.nextLine();
-
-                            // Valida los datos antes de agregar a la lista.
-                            if(!nombre.trim().isEmpty()
-                                    && precio > 0 && stock >= 0){
-
-                                // Crea el accesorio y asigna sus datos.
-                                Accesorio accesorio = new Accesorio();
-
-                                accesorio.setCodigo(codigo);
-                                accesorio.setNombre(nombre);
-                                accesorio.setPrecio(precio);
-                                accesorio.setStock(stock);
-
-                                // Agrega el accesorio al ArrayList.
-                                listaAccesorios.add(accesorio);
-
-                                System.out.println(
-                                        "Accesorio registrado correctamente.");
-                            }
-                            else{
-                                System.out.println(
-                                        "Error: nombre obligatorio, precio mayor "
-                                        + "a cero y stock no negativo.");
-                            }
-                        }
-                        else{
-                            System.out.println("Error: el codigo ya existe.");
-                        }
-
-                        System.out.print(
-                                "¿Desea registrar otro accesorio? (S/N): ");
-                        respuesta = teclado.nextLine();
-
-                    }while(respuesta.equalsIgnoreCase("S"));
-
-                    break;
-                }
-                  
-
-                // RF14. Modificar accesorios.
-                case 14: {
-
-                    System.out.print("Codigo del accesorio: ");
-                    String codigoMod = teclado.nextLine();
-
-                    boolean encontrado = false;
-
-                    // Recorre los accesorios registrados.
-                    for(Accesorio a : listaAccesorios){
-
-                        if(a.getCodigo().equalsIgnoreCase(codigoMod)){
-
-                            encontrado = true;
-
-                            System.out.print("Nuevo precio: ");
-                            double nuevoPrecio = teclado.nextDouble();
-
-                            System.out.print("Nuevo stock: ");
-                            int nuevoStock = teclado.nextInt();
-                            teclado.nextLine();
-
-                            // Verifica ambos valores antes de modificar.
-                            if(nuevoPrecio > 0 && nuevoStock >= 0){
-
-                                a.setPrecio(nuevoPrecio);
-                                a.setStock(nuevoStock);
-
-                                System.out.println("Accesorio modificado.");
-                            }
-                            else{
-                                System.out.println(
-                                        "Error: precio mayor a cero "
-                                        + "y stock no negativo.");
-                            }
-                        }
-                    }
-                          
-                    if(!encontrado){
-                    System.out.println("Accesorio no encontrado.");
-                    }
-                  break;
-                }
-                          
-                // RF15. Eliminar accesorios.
-                case 15: {
-
-                    System.out.print("Codigo a eliminar: ");
-                    String codigoEliminar = teclado.nextLine();
-
-                    boolean eliminado = false;
-
-                    // Recorre la lista utilizando un indice.
-                    for(int i = 0; i < listaAccesorios.size(); i++){
-
-                        if(listaAccesorios.get(i).getCodigo()
-                                .equalsIgnoreCase(codigoEliminar)){
-
-                            listaAccesorios.remove(i);
-                            eliminado = true;
-
-                            System.out.println("-------------------");
-                            System.out.println("Accesorio eliminado.");
-                        }
-                    }
-
-                    if(!eliminado){
-                        System.out.println("-------------------");
-                        System.out.println("Accesorio no encontrado.");
-                    }
-
-                    break;
-                }
-
-                // RF16. Buscar accesorios por codigo.
-                case 16: {
-
-                    System.out.print("Ingrese codigo: ");
-                    String codigoBuscado = teclado.nextLine();
-
-                    boolean encontrado = false;
-
-                    for(Accesorio a : listaAccesorios){
-
-                        if(a.getCodigo().equalsIgnoreCase(codigoBuscado)){
-
-                            System.out.println("-------------------");
-
-                            // Utiliza el metodo existente en Accesorio.
-                            a.buscar(codigoBuscado);
-                            encontrado = true;
-                        }
-                    }
-
-                    if(!encontrado){
-                        System.out.println("-------------------");
-                        System.out.println("Accesorio no encontrado.");
-                    }
-                    break;
-                }
-
-                // RF17. Buscar accesorios por nombre.
-                case 17: {
-
-                    System.out.print("Nombre: ");
-                    String nombreBuscado = teclado.nextLine();
-
-                    boolean encontrado = false;
-
-                    // Muestra todos los accesorios con ese nombre.
-                    for(Accesorio a : listaAccesorios){
-
-                        if(a.getNombre().equalsIgnoreCase(nombreBuscado)){
-
-                            System.out.println("-------------------");
-                            a.mostrar();
-                            encontrado = true;
-                        }
-                    }
-
-                    if(!encontrado){
-                        System.out.println("-------------------");
-                        System.out.println("Accesorio no encontrado.");
-                    }
-
-                    break;
-                }
-
-                // RF18. Consultar stock de accesorios.
-                case 18: {
-
-                    System.out.print("Ingrese codigo: ");
-                    String cod = teclado.nextLine();
-
-                    boolean existe = false;
-
-                    for(Accesorio a : listaAccesorios){
-
-                        if(a.getCodigo().equalsIgnoreCase(cod)){
-
-                            System.out.println(
-                                    "Stock disponible: " + a.getStock());
-
-                            existe = true;
-                        }       
-                    }
-                    if(!existe){
-                        System.out.println("-------------------");
-                        System.out.println("Accesorio no encontrado.");
-                    }
-
-                    break;
-                }
-
-                // RF19. Listar accesorios registrados.
-                case 19: {
-
-                    if(listaAccesorios.isEmpty()){
-                        System.out.println("-------------------");
-                        System.out.println("No hay accesorios registrados.");
-                    }
-                    else{
-                        // Recorre y muestra todos los accesorios.
-                        for(Accesorio a : listaAccesorios){
-                            System.out.println("-------------------");
-                            a.mostrar();
-                        }
-                    }
-                }
-
-                case 20: {
-                    System.out.println("Hasta luego.");
-                    break;
-                }
+                
+                
+          
+                
             }
-        }while(opcion != 20);
+        }while(opcion != 25);
                       
         teclado.close();
-        
-    }
+      
+        }
 }
