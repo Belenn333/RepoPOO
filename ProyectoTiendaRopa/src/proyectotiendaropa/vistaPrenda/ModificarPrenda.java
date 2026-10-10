@@ -25,6 +25,19 @@ public class ModificarPrenda extends javax.swing.JFrame {
         initComponents();
         //Centra la ventana en la pantalla
         setLocationRelativeTo(null);
+        
+        cmbCategoria.setModel(
+            new javax.swing.DefaultComboBoxModel<>(
+                new String[]{
+                    "Hombre",
+                    "Mujer",
+                    "Niños",
+                    "Deportivo",
+                    "Formal",
+                    "Casual"
+                }
+            )
+        );
     }
 
     /**
@@ -45,7 +58,6 @@ public class ModificarPrenda extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtTalla = new javax.swing.JTextField();
-        txtCategoria = new javax.swing.JTextField();
         txtColor = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -55,6 +67,7 @@ public class ModificarPrenda extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnLista = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        cmbCategoria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +102,8 @@ public class ModificarPrenda extends javax.swing.JFrame {
         btnVolver.setToolTipText("");
         btnVolver.addActionListener(this::btnVolverActionPerformed);
 
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,12 +129,12 @@ public class ModificarPrenda extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(lblColor, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTalla, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(txtTalla, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(txtColor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -159,8 +174,8 @@ public class ModificarPrenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLista))
+                    .addComponent(btnLista)
+                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,7 +203,7 @@ public class ModificarPrenda extends javax.swing.JFrame {
 
                 txtNombre.setText(r.getNombre());
                 txtTalla.setText(r.getTalla());
-                txtCategoria.setText(r.getCategoria());
+                cmbCategoria.setSelectedItem(r.getCategoria());
                 txtColor.setText(r.getColor());
                 txtPrecio.setText(String.valueOf(r.getPrecio()));
 
@@ -218,7 +233,7 @@ public class ModificarPrenda extends javax.swing.JFrame {
             if(r.agregar(
                     txtNombre.getText(),
                     txtTalla.getText(),
-                    txtCategoria.getText(),
+                    cmbCategoria.getSelectedItem().toString(),
                     txtColor.getText(),
                     Double.parseDouble(txtPrecio.getText()))){
 
@@ -295,6 +310,7 @@ public class ModificarPrenda extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLista;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCategoria;
@@ -303,7 +319,6 @@ public class ModificarPrenda extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblTalla;
-    private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtNombre;

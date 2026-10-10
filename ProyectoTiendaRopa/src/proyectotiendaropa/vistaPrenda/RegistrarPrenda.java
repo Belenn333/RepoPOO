@@ -25,6 +25,19 @@ public class RegistrarPrenda extends javax.swing.JFrame {
         initComponents();
         //Centra la ventana en la pantalla
         setLocationRelativeTo(null);
+        
+        cmbCategoria.setModel(
+            new javax.swing.DefaultComboBoxModel<>(
+                new String[]{
+                    "Hombre",
+                    "Mujer",
+                    "Niños",
+                    "Deportivo",
+                    "Formal",
+                    "Casual"
+                }
+            )
+        );
     }
 
     /**
@@ -44,7 +57,6 @@ public class RegistrarPrenda extends javax.swing.JFrame {
         lblTalla = new javax.swing.JLabel();
         txtTalla = new javax.swing.JTextField();
         lblCategoria = new javax.swing.JLabel();
-        txtCategoria = new javax.swing.JTextField();
         lblColor = new javax.swing.JLabel();
         txtColor = new javax.swing.JTextField();
         lblPrecio = new javax.swing.JLabel();
@@ -55,6 +67,7 @@ public class RegistrarPrenda extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        cmbCategoria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +105,9 @@ public class RegistrarPrenda extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategoria.addActionListener(this::cmbCategoriaActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,20 +125,17 @@ public class RegistrarPrenda extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                        .addGap(46, 46, 46))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtColor)
                             .addComponent(txtPrecio)
                             .addComponent(txtStock, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                            .addComponent(txtCategoria)
-                            .addComponent(txtTalla))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNombre)
-                        .addGap(44, 44, 44))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)))
-                .addGap(2, 2, 2)
+                            .addComponent(txtTalla)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,8 +170,8 @@ public class RegistrarPrenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVolver))
+                    .addComponent(btnVolver)
+                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblColor)
@@ -191,7 +204,7 @@ public class RegistrarPrenda extends javax.swing.JFrame {
         String codigo = txtCodigo.getText();
         String nombre = txtNombre.getText();
         String talla = txtTalla.getText();
-        String categoria = txtCategoria.getText();
+        String categoria = cmbCategoria.getSelectedItem().toString();
         String color = txtColor.getText();
 
         double precio = Double.parseDouble(
@@ -236,7 +249,7 @@ public class RegistrarPrenda extends javax.swing.JFrame {
             txtCodigo.setText("");
             txtNombre.setText("");
             txtTalla.setText("");
-            txtCategoria.setText("");
+            cmbCategoria.setSelectedIndex(0);
             txtColor.setText("");
             txtPrecio.setText("");
             txtStock.setText("");
@@ -287,7 +300,7 @@ public class RegistrarPrenda extends javax.swing.JFrame {
             txtCodigo.setText("");
             txtNombre.setText("");
             txtTalla.setText("");
-            txtCategoria.setText("");
+            cmbCategoria.setSelectedIndex(0);
             txtColor.setText("");
             txtPrecio.setText("");
             txtStock.setText("");
@@ -296,6 +309,10 @@ public class RegistrarPrenda extends javax.swing.JFrame {
             txtCodigo.requestFocus();
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,6 +344,7 @@ public class RegistrarPrenda extends javax.swing.JFrame {
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblCodigo;
@@ -335,7 +353,6 @@ public class RegistrarPrenda extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblStock;
     private javax.swing.JLabel lblTalla;
-    private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtNombre;

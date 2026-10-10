@@ -10,6 +10,7 @@ import proyectotiendaropa.vistaPrenda.ListaPrenda;
 import proyectotiendaropa.vistaAccesorio.RegistrarAccesorio;
 import proyectotiendaropa.vistaAccesorio.ModificarAccesorio;
 import proyectotiendaropa.vistaAccesorio.ListaAccesorio;
+import proyectotiendaropa.vistaventa.RegistrarVenta;
 
 /**
  *
@@ -49,6 +50,7 @@ public class Menu extends javax.swing.JFrame {
         miListaAccesorio = new javax.swing.JMenuItem();
         mnCliente = new javax.swing.JMenu();
         mnVentas = new javax.swing.JMenu();
+        opRegistrarVenta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Sistema Tienda Ropa");
@@ -70,6 +72,7 @@ public class Menu extends javax.swing.JFrame {
         mbTiendaRopa.add(mnPrenda);
 
         mnAccesorios.setText("Accesorios");
+
         miRegistrarAccesorio.setText("Registrar Accesorio");
         miRegistrarAccesorio.addActionListener(this::miRegistrarAccesorioActionPerformed);
         mnAccesorios.add(miRegistrarAccesorio);
@@ -88,6 +91,11 @@ public class Menu extends javax.swing.JFrame {
         mbTiendaRopa.add(mnCliente);
 
         mnVentas.setText("Ventas");
+
+        opRegistrarVenta.setText("Registrar Venta");
+        opRegistrarVenta.addActionListener(this::opRegistrarVentaActionPerformed);
+        mnVentas.add(opRegistrarVenta);
+
         mbTiendaRopa.add(mnVentas);
 
         setJMenuBar(mbTiendaRopa);
@@ -148,6 +156,18 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_miListaAccesorioActionPerformed
 
+    private void opRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opRegistrarVentaActionPerformed
+        // TODO add your handling code here:
+        RegistrarVenta frm =
+        new RegistrarVenta(
+                Principal.listaClientes,
+                Principal.listaRopa,
+                Principal.listaAccesorios,
+                Principal.listaVentas);
+
+        frm.setVisible(true);
+    }//GEN-LAST:event_opRegistrarVentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -175,15 +195,16 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbTiendaRopa;
-    private javax.swing.JMenuItem miListaPrenda;
-    private javax.swing.JMenuItem miModificarPrenda;
-    private javax.swing.JMenuItem miRegistrarMenu;
-    private javax.swing.JMenuItem miRegistrarAccesorio;
-    private javax.swing.JMenuItem miModificarAccesorio;
     private javax.swing.JMenuItem miListaAccesorio;
+    private javax.swing.JMenuItem miListaPrenda;
+    private javax.swing.JMenuItem miModificarAccesorio;
+    private javax.swing.JMenuItem miModificarPrenda;
+    private javax.swing.JMenuItem miRegistrarAccesorio;
+    private javax.swing.JMenuItem miRegistrarMenu;
     private javax.swing.JMenu mnAccesorios;
     private javax.swing.JMenu mnCliente;
     private javax.swing.JMenu mnPrenda;
     private javax.swing.JMenu mnVentas;
+    private javax.swing.JMenuItem opRegistrarVenta;
     // End of variables declaration//GEN-END:variables
 }

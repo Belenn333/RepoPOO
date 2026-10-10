@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import proyectotiendaropa.Cliente;
 import proyectotiendaropa.Ropa;
 import proyectotiendaropa.Accesorio;
+import proyectotiendaropa.Menu;
 import proyectotiendaropa.Venta;
 
 /**
@@ -32,6 +33,8 @@ public class RegistrarVenta extends javax.swing.JFrame {
      */
     public RegistrarVenta() {
         initComponents();
+        //Centra la ventana en la pantalla
+        setLocationRelativeTo(null);
     }
     // Constructor que recibe las listas del sistema
     public RegistrarVenta(
@@ -143,6 +146,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
         tblProductosVenta = new javax.swing.JTable();
         lblTotal = new javax.swing.JLabel();
         btnRegistrarVenta = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,6 +196,9 @@ public class RegistrarVenta extends javax.swing.JFrame {
         btnRegistrarVenta.setText("Registrar venta");
         btnRegistrarVenta.addActionListener(this::btnRegistrarVentaActionPerformed);
 
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(this::btnVolverActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -218,41 +225,44 @@ public class RegistrarVenta extends javax.swing.JFrame {
                         .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRegistrarVenta)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblTotal))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVolver)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnRegistrarVenta)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblTotal))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 84, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabel1)
+                .addGap(82, 82, 82)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarVenta)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(82, 82, 82)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(lblTotal)))
-                .addContainerGap(131, Short.MAX_VALUE))
+                    .addComponent(lblTotal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVolver)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
@@ -269,204 +279,211 @@ public class RegistrarVenta extends javax.swing.JFrame {
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         int indice = cmbProducto.getSelectedIndex();
 
-    if (indice < 0 || indice >= productosDisponibles.size()) {
-    javax.swing.JOptionPane.showMessageDialog(
-        this, "Seleccione un producto."
-    );
-    return;
-    }
+        if (indice < 0 || indice >= productosDisponibles.size()) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "Seleccione un producto."
+        );
+        return;
+        }
 
-    int cantidad;
+        int cantidad;
 
-    try {
-    cantidad = Integer.parseInt(txtCantidad.getText().trim());
-    } catch (NumberFormatException e) {
-    javax.swing.JOptionPane.showMessageDialog(
-        this, "Ingrese una cantidad válida."
-    );
-    return;
-    }
+        try {
+        cantidad = Integer.parseInt(txtCantidad.getText().trim());
+        } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "Ingrese una cantidad válida."
+        );
+        return;
+        }
 
-    if (cantidad <= 0) {
-    javax.swing.JOptionPane.showMessageDialog(
-        this, "La cantidad debe ser mayor que cero."
-    );
-    return;
-    }
+        if (cantidad <= 0) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "La cantidad debe ser mayor que cero."
+        );
+        return;
+        }
 
-    Object producto = productosDisponibles.get(indice);
+        Object producto = productosDisponibles.get(indice);
 
-    String nombre;
-    double precio;
-    int stock;
+        String nombre;
+        double precio;
+        int stock;
 
-    if (producto instanceof Ropa) {
-    Ropa ropa = (Ropa) producto;
-    nombre = ropa.getNombre();
-    precio = ropa.getPrecio();
-    stock = ropa.getStock();
-    } else if (producto instanceof Accesorio) {
-    Accesorio accesorio = (Accesorio) producto;
-    nombre = accesorio.getNombre();
-    precio = accesorio.getPrecio();
-    stock = accesorio.getStock();
-    } else {
-    return;
-    }
+        if (producto instanceof Ropa) {
+        Ropa ropa = (Ropa) producto;
+        nombre = ropa.getNombre();
+        precio = ropa.getPrecio();
+        stock = ropa.getStock();
+        } else if (producto instanceof Accesorio) {
+        Accesorio accesorio = (Accesorio) producto;
+        nombre = accesorio.getNombre();
+        precio = accesorio.getPrecio();
+        stock = accesorio.getStock();
+        } else {
+        return;
+        }
 
-    // Contar unidades ya agregadas de este mismo producto
-    int cantidadAgregada = 0;
+        // Contar unidades ya agregadas de este mismo producto
+        int cantidadAgregada = 0;
 
-    javax.swing.table.DefaultTableModel modelo =
-    (javax.swing.table.DefaultTableModel) tblProductosVenta.getModel();
+        javax.swing.table.DefaultTableModel modelo =
+        (javax.swing.table.DefaultTableModel) tblProductosVenta.getModel();
 
-    for (int i = 0; i < modelo.getRowCount(); i++) {
-    if (modelo.getValueAt(i, 0).equals(cmbProducto.getSelectedItem())) {
-        cantidadAgregada +=
-            Integer.parseInt(modelo.getValueAt(i, 1).toString());
-    }
-    }
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+        if (modelo.getValueAt(i, 0).equals(cmbProducto.getSelectedItem())) {
+            cantidadAgregada +=
+                Integer.parseInt(modelo.getValueAt(i, 1).toString());
+        }
+        }
 
-    if (cantidad + cantidadAgregada > stock) {
-    javax.swing.JOptionPane.showMessageDialog(
-        this, "Stock insuficiente. Disponible: " + (stock - cantidadAgregada)
-    );
-    return;
-    }
+        if (cantidad + cantidadAgregada > stock) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "Stock insuficiente. Disponible: " + (stock - cantidadAgregada)
+        );
+        return;
+        }
 
-    double subtotal = precio * cantidad;
+        double subtotal = precio * cantidad;
 
-    modelo.addRow(new Object[]{
-    cmbProducto.getSelectedItem(),
-    cantidad,
-    precio,
-    subtotal
-    });
+        modelo.addRow(new Object[]{
+        cmbProducto.getSelectedItem(),
+        cantidad,
+        precio,
+        subtotal
+        });
 
-    txtCantidad.setText("");
-    
-    // Actualizar el total de la venta
-    actualizarTotal();
+        txtCantidad.setText("");
+
+        // Actualizar el total de la venta
+        actualizarTotal();
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
     
     private void btnRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVentaActionPerformed
       if (listaVentas == null || clientesDisponibles.isEmpty()) {
-    javax.swing.JOptionPane.showMessageDialog(
-        this, "No hay datos suficientes para registrar la venta."
-    );
-    return;
-    }
-
-    int indiceCliente = cmbCliente.getSelectedIndex();
-
-    if (indiceCliente < 0) {
-    javax.swing.JOptionPane.showMessageDialog(
-        this, "Seleccione un cliente."
-    );
-    return;
-    }
-
-    javax.swing.table.DefaultTableModel modelo =
-    (javax.swing.table.DefaultTableModel) tblProductosVenta.getModel();
-
-    if (modelo.getRowCount() == 0) {
-    javax.swing.JOptionPane.showMessageDialog(
-        this, "Agregue al menos un producto."
-    );
-    return;
-    }
-
-    // Preparar los productos y verificar el stock
-    java.util.ArrayList<Object> productosVenta = new java.util.ArrayList<>();
-    java.util.IdentityHashMap<Object, Integer> cantidades =
-    new java.util.IdentityHashMap<>();
-
-    for (int i = 0; i < modelo.getRowCount(); i++) {
-
-    String descripcion = modelo.getValueAt(i, 0).toString();
-    int cantidad = ((Number) modelo.getValueAt(i, 1)).intValue();
-
-    Object producto = null;
-
-    for (int j = 0; j < cmbProducto.getItemCount(); j++) {
-        if (descripcion.equals(cmbProducto.getItemAt(j))) {
-            producto = productosDisponibles.get(j);
-            break;
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "No hay datos suficientes para registrar la venta."
+        );
+        return;
         }
-    }
 
-    if (producto == null || cantidad <= 0) {
+        int indiceCliente = cmbCliente.getSelectedIndex();
+
+        if (indiceCliente < 0) {
         javax.swing.JOptionPane.showMessageDialog(
-            this, "Hay un producto inválido en la tabla."
+            this, "Seleccione un cliente."
         );
         return;
-    }
+        }
 
-    int acumulado = cantidades.getOrDefault(producto, 0) + cantidad;
-    cantidades.put(producto, acumulado);
+        javax.swing.table.DefaultTableModel modelo =
+        (javax.swing.table.DefaultTableModel) tblProductosVenta.getModel();
 
-    for (int j = 0; j < cantidad; j++) {
-        productosVenta.add(producto);
-    }
-    }
-
-    // Comprobar el stock antes de realizar cambios
-    for (Object producto : cantidades.keySet()) {
-
-    int stock = producto instanceof Ropa
-        ? ((Ropa) producto).getStock()
-        : ((Accesorio) producto).getStock();
-
-    if (cantidades.get(producto) > stock) {
+        if (modelo.getRowCount() == 0) {
         javax.swing.JOptionPane.showMessageDialog(
-            this, "Stock insuficiente para uno de los productos."
+            this, "Agregue al menos un producto."
         );
         return;
-    }
-    }
+        }
 
-    // Crear la venta
-    Venta venta = new Venta();
+        // Preparar los productos y verificar el stock
+        java.util.ArrayList<Object> productosVenta = new java.util.ArrayList<>();
+        java.util.IdentityHashMap<Object, Integer> cantidades =
+        new java.util.IdentityHashMap<>();
 
-    Cliente cliente = clientesDisponibles.get(indiceCliente);
-    venta.asociarCliente(cliente);
+        for (int i = 0; i < modelo.getRowCount(); i++) {
 
-    // Agregar cada unidad vendida
-    for (Object producto : productosVenta) {
+        String descripcion = modelo.getValueAt(i, 0).toString();
+        int cantidad = ((Number) modelo.getValueAt(i, 1)).intValue();
 
-    if (producto instanceof Ropa) {
-        venta.agregarPrenda((Ropa) producto);
-    } else if (producto instanceof Accesorio) {
-        venta.agregarAccesorio((Accesorio) producto);
-    }
-    }
+        Object producto = null;
 
-    // Generar código y fecha
-    String codigo = "V" + System.currentTimeMillis();
+        for (int j = 0; j < cmbProducto.getItemCount(); j++) {
+            if (descripcion.equals(cmbProducto.getItemAt(j))) {
+                producto = productosDisponibles.get(j);
+                break;
+            }
+        }
 
-    String fecha = java.time.LocalDate.now().toString();
+        if (producto == null || cantidad <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, "Hay un producto inválido en la tabla."
+            );
+            return;
+        }
 
-    // Registrar y actualizar stock
-    venta.registrarVenta(codigo, fecha);
-    venta.actualizarStock();
+        int acumulado = cantidades.getOrDefault(producto, 0) + cantidad;
+        cantidades.put(producto, acumulado);
 
-    listaVentas.add(venta);
+        for (int j = 0; j < cantidad; j++) {
+            productosVenta.add(producto);
+        }
+        }
 
-    // Mostrar resultado
-    javax.swing.JOptionPane.showMessageDialog(
-    this,
-    String.format(
-        "Venta registrada correctamente.\nCódigo: %s\nTotal con IGV: S/ %.2f",
-        codigo, venta.getTotal()
-    )
-    );
+        // Comprobar el stock antes de realizar cambios
+        for (Object producto : cantidades.keySet()) {
 
-    // Limpiar formulario
-    modelo.setRowCount(0);
-    txtCantidad.setText("");
-    actualizarTotal();
-    cargarProductos();
+        int stock = producto instanceof Ropa
+            ? ((Ropa) producto).getStock()
+            : ((Accesorio) producto).getStock();
+
+        if (cantidades.get(producto) > stock) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, "Stock insuficiente para uno de los productos."
+            );
+            return;
+        }
+        }
+
+        // Crear la venta
+        Venta venta = new Venta();
+
+        Cliente cliente = clientesDisponibles.get(indiceCliente);
+        venta.asociarCliente(cliente);
+
+        // Agregar cada unidad vendida
+        for (Object producto : productosVenta) {
+
+        if (producto instanceof Ropa) {
+            venta.agregarPrenda((Ropa) producto);
+        } else if (producto instanceof Accesorio) {
+            venta.agregarAccesorio((Accesorio) producto);
+        }
+        }
+
+        // Generar código y fecha
+        String codigo = "V" + System.currentTimeMillis();
+
+        String fecha = java.time.LocalDate.now().toString();
+
+        // Registrar y actualizar stock
+        venta.registrarVenta(codigo, fecha);
+        venta.actualizarStock();
+
+        listaVentas.add(venta);
+
+        // Mostrar resultado
+        javax.swing.JOptionPane.showMessageDialog(this, String.format(
+            "Venta registrada correctamente.\nCódigo: %s\nTotal con IGV: S/ %.2f",
+            codigo, venta.getTotal()
+            )
+        );
+
+        // Limpiar formulario
+        modelo.setRowCount(0);
+        txtCantidad.setText("");
+        actualizarTotal();
+        cargarProductos();
     }//GEN-LAST:event_btnRegistrarVentaActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        Menu frm = new Menu();
+        frm.setVisible(true);
+        
+        //Cierra la ventana actual
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -496,6 +513,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnRegistrarVenta;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cmbCliente;
     private javax.swing.JComboBox<String> cmbProducto;
     private javax.swing.JLabel jLabel1;
