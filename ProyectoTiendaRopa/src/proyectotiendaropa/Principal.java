@@ -4,15 +4,82 @@
  */
 package proyectotiendaropa;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
+    
+    public static ArrayList<Ropa> listaRopa = new ArrayList<>();
+    
+    public static void guardarTodasLasPrendas() {
+
+        try {
+
+            FileWriter archivo = new FileWriter("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt");
+
+            for(Ropa r : listaRopa){
+
+                archivo.write(
+                        r.getCodigo() + ";" +
+                        r.getNombre() + ";" +
+                        r.getTalla() + ";" +
+                        r.getCategoria() + ";" +
+                        r.getColor() + ";" +
+                        r.getPrecio() + ";" +
+                        r.getStock() + "\n"
+                );
+            }
+            archivo.close();
+
+        } catch(Exception e){
+            System.out.println(
+                    "Error al guardar las prendas");
+        }
+    }
+    
+    public static void cargarPrendas() {
+
+        try {
+
+            BufferedReader lector =
+                    new BufferedReader(new FileReader("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt"));
+
+            String linea;
+
+            while((linea = lector.readLine()) != null){
+
+                String[] datos = linea.split(";");
+
+                Ropa ropa = new Ropa();
+
+                ropa.agregar(
+                        datos[0], // codigo
+                        datos[1], // nombre
+                        datos[2], // talla
+                        datos[3], // categoria
+                        datos[4], // color
+                        Double.parseDouble(datos[5]),
+                        Integer.parseInt(datos[6])
+                );
+
+                listaRopa.add(ropa);
+            }
+
+            lector.close();
+
+        } catch(Exception e){
+
+            System.out.println("No existe archivo o está vacío.");
+        }
+    }
 
     public static void main(String[] args) {
 
         //ArrayList que almacena todas las prendas registradas
-        ArrayList<Ropa> listaRopa = new ArrayList<>();
+        //ArrayList<Ropa> listaRopa = new ArrayList<>();
 
         // ArrayList que almacena los clientes registrados
         ArrayList<Cliente> listaClientes = new ArrayList<>();
@@ -20,6 +87,16 @@ public class Principal {
         // ArrayList que almacena los accesorios registrados.
         ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
 
+        //Para que cargue primero el txt
+        cargarPrendas();
+        
+        //Inicializamos el Menu
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        
+        //Inicializamos el formulario Registrar Prenda
+        RegistrarPrenda formRegistrarPrenda = new RegistrarPrenda();
+        
         // Permite ingresar datos
         Scanner teclado = new Scanner(System.in);
 

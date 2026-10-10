@@ -1,0 +1,2 @@
+ROP001;Vestido Verano;S;Mujer;rojo;89.0;23
+ROP002;Camisa cuadro;M;Hombre;Azul;36.0;23
