@@ -8,15 +8,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
-    
+
     public static ArrayList<Ropa> listaRopa = new ArrayList<>();
-  
+
     // Lista compartida para el modulo Accesorios y sus formularios.
     public static ArrayList<Accesorio> listaAccesorios = new ArrayList<>();
-    
+
     public static ArrayList<Cliente> listaClientes = new ArrayList<>();
-    
-    
+
     public static ArrayList<Venta> listaVentas = new ArrayList<>();
 
     // Permite cargar el TXT una sola vez al abrir los formularios.
@@ -27,48 +26,48 @@ public class Principal {
             cargarAccesorios();
         }
     }
-    
+
     public static void guardarTodasLasPrendas() {
 
         try {
-          
+
             FileWriter archivo = new FileWriter("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt");
 
-            for(Ropa r : listaRopa){
+            for (Ropa r : listaRopa) {
 
                 archivo.write(
-                        r.getCodigo() + ";" +
-                        r.getNombre() + ";" +
-                        r.getTalla() + ";" +
-                        r.getCategoria() + ";" +
-                        r.getColor() + ";" +
-                        r.getPrecio() + ";" +
-                        r.getStock() + "\n"
+                        r.getCodigo() + ";"
+                        + r.getNombre() + ";"
+                        + r.getTalla() + ";"
+                        + r.getCategoria() + ";"
+                        + r.getColor() + ";"
+                        + r.getPrecio() + ";"
+                        + r.getStock() + "\n"
                 );
             }
             archivo.close();
 
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(
                     "Error al guardar las prendas");
         }
     }
-    
+
     public static void cargarPrendas() {
-              try {
+        try {
 
-                  BufferedReader lector =
-                        new BufferedReader(new FileReader("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt"));
+            BufferedReader lector
+                    = new BufferedReader(new FileReader("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt"));
 
-                  String linea; 
-                
-                  while((linea = lector.readLine()) != null){
+            String linea;
 
-                  String[] datos = linea.split(";");
+            while ((linea = lector.readLine()) != null) {
 
-                  Ropa ropa = new Ropa();
-                    
-                                 ropa.agregar(
+                String[] datos = linea.split(";");
+
+                Ropa ropa = new Ropa();
+
+                ropa.agregar(
                         datos[0], // codigo
                         datos[1], // nombre
                         datos[2], // talla
@@ -83,7 +82,7 @@ public class Principal {
 
             lector.close();
 
-        } catch(Exception e){
+        } catch (Exception e) {
 
             System.out.println("No existe archivo o está vacío.");
         }
@@ -104,11 +103,11 @@ public class Principal {
 
             for (Accesorio a : listaAccesorios) {
                 archivo.write(
-                        a.getCodigo() + ";" +
-                        a.getNombre() + ";" +
-                        a.getColor() + ";" +
-                        a.getPrecio() + ";" +
-                        a.getStock() + "\n"
+                        a.getCodigo() + ";"
+                        + a.getNombre() + ";"
+                        + a.getColor() + ";"
+                        + a.getPrecio() + ";"
+                        + a.getStock() + "\n"
                 );
             }
 
@@ -123,7 +122,7 @@ public class Principal {
         accesoriosCargados = true;
 
         File archivoAccesorios = new File("src/TXTs/accesorios.txt");
-      
+
         if (!archivoAccesorios.exists()) {
             return; // La primera vez todavia no existe el TXT.
         }
@@ -140,7 +139,7 @@ public class Principal {
                 if (datos.length == 5) {
                     try {
                         Accesorio accesorio = new Accesorio();
-                  
+
                         if (accesorio.agregar(
                                 datos[0], // codigo
                                 datos[1], // nombre
@@ -174,7 +173,82 @@ public class Principal {
         System.out.println("Precio: " + r.getPrecio());
         System.out.println("Stock: " + r.getStock());
     }
-      
+
+    public static void guardarClientes() {
+
+        try {
+
+            File archivo = new File("src/TXTs/clientes.txt");
+
+            FileWriter fw = new FileWriter(archivo);
+
+            for (Cliente c : listaClientes) {
+
+                fw.write(
+                        c.getCodigo() + ";"
+                        + c.getNombre() + ";"
+                        + c.getDni() + ";"
+                        + c.getTelefono() + "\n"
+                );
+            }
+
+            fw.close();
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "Error al guardar clientes: "
+                    + e.getMessage()
+            );
+        }
+    }
+
+    public static void cargarClientes() {
+
+        try {
+
+            File archivo = new File("src/TXTs/clientes.txt");
+
+            if (!archivo.exists()) {
+                return;
+            }
+
+            BufferedReader lector = new BufferedReader(
+                    new FileReader(archivo));
+
+            listaClientes.clear();
+
+            String linea;
+
+            while ((linea = lector.readLine()) != null) {
+
+                String[] datos = linea.split(";");
+
+                if (datos.length == 4) {
+
+                    Cliente cliente = new Cliente();
+
+                    cliente.agregar(
+                            datos[0],
+                            datos[1],
+                            datos[2],
+                            datos[3]
+                    );
+
+                    listaClientes.add(cliente);
+                }
+            }
+
+            lector.close();
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "Error al cargar clientes: "
+                    + e.getMessage()
+            );
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -182,11 +256,9 @@ public class Principal {
         ArrayList<Ropa> listaRopa = new ArrayList<>();
 
         // ArrayList que almacena los clientes registrados
-        
-
         //ArrayList que almacena los accesorios registrados
         ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
-        
+
         //ArrayList que almacena las ventas registradas
         ArrayList<Venta> listaVentas = new ArrayList<>();
 
@@ -197,30 +269,27 @@ public class Principal {
         // La lista compartida de accesorios se declara al inicio de Principal.
         // Lista de ventas conservada del modulo de main.
         //ArrayList<Venta> listaVentas = new ArrayList<>();
-
         //Para que cargue primero el txt
         cargarPrendas();
         cargarAccesorios();
-        
+        cargarClientes();
         //Inicializamos el Menu
         Menu menu = new Menu();
         menu.setVisible(true);
-        
+
         //Permite ingresar datos
         //Scanner teclado = new Scanner(System.in);
-
         int opcion;
 
         do {
 
-            
             System.out.println("\n=== MODULO CLIENTES ===");
             System.out.println("8. Registrar cliente");
             System.out.println("9. Modificar cliente");
             System.out.println("10. Buscar cliente por codigo o nombre");
             System.out.println("11. Listar cliente");
             System.out.println("12. Elimininar cliente");
-            
+
             System.out.println("\n=== MODULO VENTAS ===");
             System.out.println("20. Registrar venta");
             System.out.println("21. Consultar ventas realizadas");
@@ -228,7 +297,7 @@ public class Principal {
             System.out.println("23. Mostrar detalle de venta");
             System.out.println("24. Generar comprobante de venta");
             System.out.println("25. Salir");
-            
+
             System.out.println("------------------");
             System.out.print("Ingrese opcion: ");
             opcion = teclado.nextInt();
@@ -236,12 +305,11 @@ public class Principal {
 
             switch (opcion) {
 
-                
                 case 8: {
 
                     String respuesta;
 
-                    do{
+                    do {
 
                         System.out.println("\n=== REGISTRAR CLIENTE ===");
 
@@ -260,8 +328,7 @@ public class Principal {
 
                         if (existe) {
                             System.out.println("Error: el codigo del cliente ya existe.");
-                        }
-                        else{
+                        } else {
 
                             System.out.print("Nombre: ");
                             String nombre = teclado.nextLine();
@@ -281,9 +348,9 @@ public class Principal {
                             // Valida los datos ingresados
                             if (cliente.validarDatos()) {
                                 listaClientes.add(cliente);
+                                guardarClientes();
                                 System.out.println("Cliente registrado correctamente.");
-                            } 
-                            else {
+                            } else {
                                 System.out.println("Error: los datos ingresados no son validos.");
                             }
                         }
@@ -292,7 +359,7 @@ public class Principal {
                         System.out.print("¿Desea registrar otro cliente? (S/N): ");
                         respuesta = teclado.nextLine();
 
-                    }while(respuesta.equalsIgnoreCase("S"));
+                    } while (respuesta.equalsIgnoreCase("S"));
 
                     break;
                 }
@@ -317,10 +384,11 @@ public class Principal {
                             String telefono = teclado.nextLine();
 
                             c.modificar(nombre, dni, telefono);
+                            guardarClientes();
 
                             System.out.println("Cliente modificado correctamente.");
                             modificado = true;
-                            
+
                         }
                     }
 
@@ -329,8 +397,8 @@ public class Principal {
                     }
 
                     break;
-                  }
-                  case 10: {
+                }
+                case 10: {
                     System.out.println("\n=== BUSCAR CLIENTE ===");
 
                     System.out.println("1. Buscar por codigo");
@@ -382,8 +450,7 @@ public class Principal {
                             }
                         }
 
-                    } 
-                    else {
+                    } else {
                         System.out.println("Opcion no valida.");
                     }
 
@@ -427,9 +494,10 @@ public class Principal {
 
                             // Elimina el cliente del ArrayList
                             listaClientes.remove(i);
+                            guardarClientes();
 
                             System.out.println("Cliente eliminado correctamente.");
-                            eliminado = true;                      
+                            eliminado = true;
                         }
                     }
                     if (!eliminado) {
@@ -437,14 +505,11 @@ public class Principal {
                     }
                     break;
                 }
-                
-                
-          
-                
+
             }
-        }while(opcion != 25);
-                      
+        } while (opcion != 25);
+
         teclado.close();
-      
-        }
+
+    }
 }
