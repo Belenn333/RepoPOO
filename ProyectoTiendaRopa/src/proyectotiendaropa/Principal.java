@@ -6,6 +6,7 @@ package proyectotiendaropa;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import proyectotiendaropa.vistaventa.RegistrarVenta;
 
 public class Principal {
 
@@ -62,7 +63,7 @@ public class Principal {
             System.out.println("23. Mostrar detalle de venta");
             System.out.println("24. Generar comprobante de venta");
             System.out.println("25. Salir");
-            
+            System.out.println("26. Abrir formulario de ventas");
             System.out.println("------------------");
             System.out.print("Ingrese opcion: ");
             opcion = teclado.nextInt();
@@ -1133,10 +1134,39 @@ public class Principal {
                     System.out.println("Hasta luego.");
                     break;
                 }
+                case 26: {
+        System.out.println("\n=== FORMULARIO DE VENTAS ===");
+
+        if (listaClientes.isEmpty()) {
+        System.out.println("Primero debe registrar un cliente.");
+        break;
+        }
+
+        if (listaRopa.isEmpty() && listaAccesorios.isEmpty()) {
+        System.out.println("Primero debe registrar un producto.");
+        break;
+        }
+        
+        RegistrarVenta formulario = new RegistrarVenta(
+        listaClientes,
+        listaRopa,
+        listaAccesorios,
+        listaVentas
+        );
+
+         formulario.setDefaultCloseOperation(
+        javax.swing.JFrame.DISPOSE_ON_CLOSE
+         );
+
+        formulario.setLocationRelativeTo(null);
+        formulario.setVisible(true);
+
+        break;
+        }
             }
         }while(opcion != 25);
                       
         teclado.close();
       
-    }
+        }
 }
