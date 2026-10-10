@@ -1,3 +1,3 @@
-ROP001;Vestido Verano;S;Mujer;rojo;89.0;23
+ROP001;Vestido Verano;S;Mujer;rojo;89.0;10
 ROP002;Camisa cuadro;s;Mujer;Azul;36.0;23
 ROP003;Vestido corto;S;Mujer;Celeste;34.0;256

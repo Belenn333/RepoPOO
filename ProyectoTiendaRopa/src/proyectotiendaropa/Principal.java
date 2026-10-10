@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Principal {
 
@@ -67,7 +66,9 @@ public class Principal {
 
                 Ropa ropa = new Ropa();
 
-                ropa.agregar(
+                  Ropa ropa = new Ropa();
+                    
+                    ropa.agregar(
                         datos[0], // codigo
                         datos[1], // nombre
                         datos[2], // talla
@@ -161,6 +162,165 @@ public class Principal {
             System.out.println("Error al cargar los accesorios: " + e.getMessage());
         }
     }
+    
+    // Guarda todos los clientes registrados en un archivo TXT
+    public static void guardarTodosLosClientes() {
+
+        try {
+
+            File archivoClientes =
+                    new File("src/TXTs/clientes.txt");
+
+            File carpeta =
+                    archivoClientes.getParentFile();
+
+            if (!carpeta.exists()) {
+                carpeta.mkdirs();
+            }
+
+            FileWriter archivo =
+                    new FileWriter(archivoClientes);
+
+            for (Cliente c : listaClientes) {
+
+                archivo.write(
+                        c.getCodigo() + ";" +
+                        c.getNombre() + ";" +
+                        c.getDni() + ";" +
+                        c.getTelefono() + "\n"
+                );
+            }
+
+            archivo.close();
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "Error al guardar los clientes: "
+                    + e.getMessage());
+        }
+    }
+    
+    // Carga los clientes registrados desde un archivo TXT
+    public static void cargarClientes() {
+
+        try {
+
+            BufferedReader lector =
+                    new BufferedReader(
+                            new FileReader(
+                                    "src/TXTs/clientes.txt"));
+
+            String linea;
+
+            while ((linea = lector.readLine()) != null) {
+
+                String[] datos = linea.split(";");
+
+                Cliente cliente = new Cliente();
+
+                cliente.agregar(
+                        datos[0], // código
+                        datos[1], // nombre
+                        datos[2], // dni
+                        datos[3]  // teléfono
+                );
+
+                listaClientes.add(cliente);
+            }
+
+            lector.close();
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "No existe archivo de clientes o está vacío.");
+        }
+    }
+    
+    //Guarda todas las ventas registradas en un archivo TXT
+    public static void guardarTodasLasVentas() {
+
+        try {
+
+            FileWriter archivo = new FileWriter(
+                "D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\ventas.txt"
+            );
+
+            for(Venta v : listaVentas){
+
+                archivo.write(
+                    v.getCodigoVenta() + ";" +
+                    v.getCliente().getDni() + ";" +
+                    v.getFecha() + ";" +
+                    v.getSubtotal() + ";" +
+                    v.getIgv() + ";" +
+                    v.getTotal() + "\n"
+                );
+            }
+
+            archivo.close();
+
+        } catch(Exception e){
+
+            System.out.println("Error al guardar las ventas.");
+        }
+    }
+    
+    //Metodo para recuperar Ventas
+    public static void cargarVentas() {
+
+        try {
+
+            BufferedReader lector =
+                    new BufferedReader(
+                            new FileReader(
+                                    "D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\ventas.txt"));
+
+            String linea;
+
+            while((linea = lector.readLine()) != null){
+
+                String[] datos = linea.split(";");
+
+                Venta venta = new Venta();
+
+                venta.setCodigoVenta(datos[0]);
+
+                String dni = datos[1];
+
+                venta.setFecha(datos[2]);
+
+                venta.setSubtotal(
+                        Double.parseDouble(datos[3]));
+
+                venta.setIgv(
+                        Double.parseDouble(datos[4]));
+
+                venta.setTotal(
+                        Double.parseDouble(datos[5]));
+
+                for(Cliente c : listaClientes){
+
+                    if(c.getDni().equals(dni)){
+
+                        venta.asociarCliente(c);
+                        break;
+                    }
+                }
+
+                listaVentas.add(venta);
+            }
+
+            lector.close();
+
+        } catch(Exception e){
+
+            System.out.println(
+                    "Error al cargar ventas: "
+                    + e.getMessage());
+        }
+    }
 
     // Presenta los datos en consola utilizando los getters de Ropa.
     // Compatible con la clase Ropa que usan los formularios de NetBeans.
@@ -173,343 +333,20 @@ public class Principal {
         System.out.println("Precio: " + r.getPrecio());
         System.out.println("Stock: " + r.getStock());
     }
-
-    public static void guardarClientes() {
-
-        try {
-
-            File archivo = new File("src/TXTs/clientes.txt");
-
-            FileWriter fw = new FileWriter(archivo);
-
-            for (Cliente c : listaClientes) {
-
-                fw.write(
-                        c.getCodigo() + ";"
-                        + c.getNombre() + ";"
-                        + c.getDni() + ";"
-                        + c.getTelefono() + "\n"
-                );
-            }
-
-            fw.close();
-
-        } catch (Exception e) {
-
-            System.out.println(
-                    "Error al guardar clientes: "
-                    + e.getMessage()
-            );
-        }
-    }
-
-    public static void cargarClientes() {
-
-        try {
-
-            File archivo = new File("src/TXTs/clientes.txt");
-
-            if (!archivo.exists()) {
-                return;
-            }
-
-            BufferedReader lector = new BufferedReader(
-                    new FileReader(archivo));
-
-            listaClientes.clear();
-
-            String linea;
-
-            while ((linea = lector.readLine()) != null) {
-
-                String[] datos = linea.split(";");
-
-                if (datos.length == 4) {
-
-                    Cliente cliente = new Cliente();
-
-                    cliente.agregar(
-                            datos[0],
-                            datos[1],
-                            datos[2],
-                            datos[3]
-                    );
-
-                    listaClientes.add(cliente);
-                }
-            }
-
-            lector.close();
-
-        } catch (Exception e) {
-
-            System.out.println(
-                    "Error al cargar clientes: "
-                    + e.getMessage()
-            );
-        }
-    }
+      
 
     public static void main(String[] args) {
 
-        //ArrayList que almacena todas las prendas registradas
-        ArrayList<Ropa> listaRopa = new ArrayList<>();
-
-        // ArrayList que almacena los clientes registrados
-        //ArrayList que almacena los accesorios registrados
-        ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
-
-        //ArrayList que almacena las ventas registradas
-        ArrayList<Venta> listaVentas = new ArrayList<>();
-
-        //Permite ingresar datos
-        Scanner teclado = new Scanner(System.in);
-
-        // ArrayList que almacena los accesorios registrados.
-        // La lista compartida de accesorios se declara al inicio de Principal.
-        // Lista de ventas conservada del modulo de main.
-        //ArrayList<Venta> listaVentas = new ArrayList<>();
         //Para que cargue primero el txt
+        cargarClientes();
         cargarPrendas();
         cargarAccesorios();
-        cargarClientes();
+        cargarVentas();
+        
         //Inicializamos el Menu
         Menu menu = new Menu();
         menu.setVisible(true);
-
-        //Permite ingresar datos
-        //Scanner teclado = new Scanner(System.in);
-        int opcion;
-
-        do {
-
-            System.out.println("\n=== MODULO CLIENTES ===");
-            System.out.println("8. Registrar cliente");
-            System.out.println("9. Modificar cliente");
-            System.out.println("10. Buscar cliente por codigo o nombre");
-            System.out.println("11. Listar cliente");
-            System.out.println("12. Elimininar cliente");
-
-            System.out.println("\n=== MODULO VENTAS ===");
-            System.out.println("20. Registrar venta");
-            System.out.println("21. Consultar ventas realizadas");
-            System.out.println("22. Buscar venta por codigo");
-            System.out.println("23. Mostrar detalle de venta");
-            System.out.println("24. Generar comprobante de venta");
-            System.out.println("25. Salir");
-
-            System.out.println("------------------");
-            System.out.print("Ingrese opcion: ");
-            opcion = teclado.nextInt();
-            teclado.nextLine();
-
-            switch (opcion) {
-
-                case 8: {
-
-                    String respuesta;
-
-                    do {
-
-                        System.out.println("\n=== REGISTRAR CLIENTE ===");
-
-                        System.out.print("Codigo: ");
-                        String codigo = teclado.nextLine();
-
-                        // Verifica que el codigo no este repetido
-                        boolean existe = false;
-
-                        for (Cliente c : listaClientes) {
-                            if (c.getCodigo().equalsIgnoreCase(codigo)) {
-                                existe = true;
-                                break;
-                            }
-                        }
-
-                        if (existe) {
-                            System.out.println("Error: el codigo del cliente ya existe.");
-                        } else {
-
-                            System.out.print("Nombre: ");
-                            String nombre = teclado.nextLine();
-
-                            System.out.print("DNI: ");
-                            String dni = teclado.nextLine();
-
-                            System.out.print("Telefono: ");
-                            String telefono = teclado.nextLine();
-
-                            // Crea el objeto Cliente
-                            Cliente cliente = new Cliente();
-
-                            // Registra los datos del cliente
-                            cliente.agregar(codigo, nombre, dni, telefono);
-
-                            // Valida los datos ingresados
-                            if (cliente.validarDatos()) {
-                                listaClientes.add(cliente);
-                                guardarClientes();
-                                System.out.println("Cliente registrado correctamente.");
-                            } else {
-                                System.out.println("Error: los datos ingresados no son validos.");
-                            }
-                        }
-
-                        // Pregunta si desea registrar otro cliente
-                        System.out.print("¿Desea registrar otro cliente? (S/N): ");
-                        respuesta = teclado.nextLine();
-
-                    } while (respuesta.equalsIgnoreCase("S"));
-
-                    break;
-                }
-                case 9: {
-                    System.out.println("\n=== MODIFICAR CLIENTE ===");
-
-                    System.out.print("Codigo del cliente: ");
-                    String codigoMod = teclado.nextLine();
-
-                    boolean modificado = false;
-
-                    for (Cliente c : listaClientes) {
-                        if (c.getCodigo().equalsIgnoreCase(codigoMod)) {
-
-                            System.out.print("Nuevo nombre: ");
-                            String nombre = teclado.nextLine();
-
-                            System.out.print("Nuevo DNI: ");
-                            String dni = teclado.nextLine();
-
-                            System.out.print("Nuevo telefono: ");
-                            String telefono = teclado.nextLine();
-
-                            c.modificar(nombre, dni, telefono);
-                            guardarClientes();
-
-                            System.out.println("Cliente modificado correctamente.");
-                            modificado = true;
-
-                        }
-                    }
-
-                    if (!modificado) {
-                        System.out.println("Cliente no encontrado.");
-                    }
-
-                    break;
-                }
-                case 10: {
-                    System.out.println("\n=== BUSCAR CLIENTE ===");
-
-                    System.out.println("1. Buscar por codigo");
-                    System.out.println("2. Buscar por nombre y DNI");
-                    System.out.print("Seleccione una opcion: ");
-
-                    int tipoBusqueda = teclado.nextInt();
-                    teclado.nextLine();
-
-                    boolean encontrado = false;
-
-                    if (tipoBusqueda == 1) {
-
-                        System.out.print("Codigo del cliente: ");
-                        String codigoBuscado = teclado.nextLine();
-
-                        // Recorre la lista de clientes
-                        for (Cliente c : listaClientes) {
-
-                            // Verifica si el codigo coincide
-                            if (c.getCodigo().equalsIgnoreCase(codigoBuscado)) {
-
-                                // Llama al método buscar(String codigo)
-                                c.buscar(codigoBuscado);
-
-                                encontrado = true;
-                            }
-                        }
-
-                    } else if (tipoBusqueda == 2) {
-
-                        System.out.print("Nombre del cliente: ");
-                        String nombreBuscado = teclado.nextLine();
-
-                        System.out.print("DNI del cliente: ");
-                        String dniBuscado = teclado.nextLine();
-
-                        // Recorre la lista de clientes
-                        for (Cliente c : listaClientes) {
-
-                            // Verifica si coinciden el nombre y el DNI
-                            if (c.getNombre().equalsIgnoreCase(nombreBuscado)
-                                    && c.getDni().equals(dniBuscado)) {
-
-                                // Llama al método buscar(String nombre, String dni)
-                                c.buscar(nombreBuscado, dniBuscado);
-
-                                encontrado = true;
-                            }
-                        }
-
-                    } else {
-                        System.out.println("Opcion no valida.");
-                    }
-
-                    if (!encontrado) {
-                        System.out.println("Cliente no encontrado.");
-                    }
-
-                    break;
-                }
-                case 11: {
-                    System.out.println("\n=== LISTAR CLIENTES ===");
-
-                    if (listaClientes.isEmpty()) {
-                        System.out.println("No hay clientes registrados.");
-                    } else {
-
-                        // Recorre y muestra todos los clientes registrados
-                        for (Cliente c : listaClientes) {
-                            System.out.println("-------------------");
-                            c.mostrar();
-                        }
-                    }
-
-                    break;
-                }
-                case 12: {
-                    System.out.println("\n=== ELIMINAR CLIENTE ===");
-
-                    System.out.print("Codigo del cliente: ");
-                    String codigoEliminar = teclado.nextLine();
-
-                    boolean eliminado = false;
-
-                    for (int i = 0; i < listaClientes.size(); i++) {
-                        if (listaClientes.get(i).getCodigo().equalsIgnoreCase(codigoEliminar)) {
-
-                            Cliente cliente = listaClientes.get(i);
-
-                            // Elimina los datos del cliente
-                            cliente.eliminar();
-
-                            // Elimina el cliente del ArrayList
-                            listaClientes.remove(i);
-                            guardarClientes();
-
-                            System.out.println("Cliente eliminado correctamente.");
-                            eliminado = true;
-                        }
-                    }
-                    if (!eliminado) {
-                        System.out.println("Cliente no encontrado.");
-                    }
-                    break;
-                }
-
-            }
-        } while (opcion != 25);
-
-        teclado.close();
-
+        
+       
     }
 }

@@ -9,6 +9,7 @@ import proyectotiendaropa.Cliente;
 import proyectotiendaropa.Ropa;
 import proyectotiendaropa.Accesorio;
 import proyectotiendaropa.Menu;
+import proyectotiendaropa.Principal;
 import proyectotiendaropa.Venta;
 
 /**
@@ -84,6 +85,8 @@ public class RegistrarVenta extends javax.swing.JFrame {
             );
         }
     }
+    
+    setLocationRelativeTo(null);
 }
 
    // Mostrar clientes registrados
@@ -461,7 +464,13 @@ public class RegistrarVenta extends javax.swing.JFrame {
         venta.actualizarStock();
 
         listaVentas.add(venta);
-
+        
+        //Actualizar stock 
+        Principal.guardarTodasLasVentas();
+        Principal.guardarTodasLasPrendas();
+        Principal.guardarTodosLosAccesorios();
+        
+        
         // Mostrar resultado
         javax.swing.JOptionPane.showMessageDialog(this, String.format(
             "Venta registrada correctamente.\nCódigo: %s\nTotal con IGV: S/ %.2f",
