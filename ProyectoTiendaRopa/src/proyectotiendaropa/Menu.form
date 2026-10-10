@@ -39,6 +39,20 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Accesorios"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="miRegistrarAccesorio">
+              <Properties><Property name="text" type="java.lang.String" value="Registrar Accesorio"/></Properties>
+              <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miRegistrarAccesorioActionPerformed"/></Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miModificarAccesorio">
+              <Properties><Property name="text" type="java.lang.String" value="Modificar Accesorio"/></Properties>
+              <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miModificarAccesorioActionPerformed"/></Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miListaAccesorio">
+              <Properties><Property name="text" type="java.lang.String" value="Lista Accesorio"/></Properties>
+              <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miListaAccesorioActionPerformed"/></Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnCliente">
           <Properties>
