@@ -7,11 +7,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import proyectotiendaropa.vistaventa.RegistrarVenta;
 
 public class Principal {
     
     public static ArrayList<Ropa> listaRopa = new ArrayList<>();
-
+  
     // Lista compartida para el modulo Accesorios y sus formularios.
     public static ArrayList<Accesorio> listaAccesorios = new ArrayList<>();
 
@@ -27,7 +28,7 @@ public class Principal {
     public static void guardarTodasLasPrendas() {
 
         try {
-
+          
             FileWriter archivo = new FileWriter("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt");
 
             for(Ropa r : listaRopa){
@@ -51,21 +52,20 @@ public class Principal {
     }
     
     public static void cargarPrendas() {
+              try {
 
-        try {
+                  BufferedReader lector =
+                        new BufferedReader(new FileReader("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt"));
 
-            BufferedReader lector =
-                    new BufferedReader(new FileReader("D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\prendas.txt"));
+                  String linea; 
+                
+                  while((linea = lector.readLine()) != null){
 
-            String linea;
+                  String[] datos = linea.split(";");
 
-            while((linea = lector.readLine()) != null){
-
-                String[] datos = linea.split(";");
-
-                Ropa ropa = new Ropa();
-
-                ropa.agregar(
+                  Ropa ropa = new Ropa();
+                    
+                                 ropa.agregar(
                         datos[0], // codigo
                         datos[1], // nombre
                         datos[2], // talla
@@ -97,7 +97,6 @@ public class Principal {
             if (!carpeta.exists()) {
                 carpeta.mkdirs();
             }
-
             FileWriter archivo = new FileWriter(archivoAccesorios);
 
             for (Accesorio a : listaAccesorios) {
@@ -111,7 +110,6 @@ public class Principal {
             }
 
             archivo.close();
-
         } catch (Exception e) {
             System.out.println("Error al guardar los accesorios: " + e.getMessage());
         }
@@ -122,7 +120,7 @@ public class Principal {
         accesoriosCargados = true;
 
         File archivoAccesorios = new File("src/TXTs/accesorios.txt");
-
+      
         if (!archivoAccesorios.exists()) {
             return; // La primera vez todavia no existe el TXT.
         }
@@ -139,7 +137,7 @@ public class Principal {
                 if (datos.length == 5) {
                     try {
                         Accesorio accesorio = new Accesorio();
-
+                  
                         if (accesorio.agregar(
                                 datos[0], // codigo
                                 datos[1], // nombre
@@ -173,11 +171,26 @@ public class Principal {
         System.out.println("Precio: " + r.getPrecio());
         System.out.println("Stock: " + r.getStock());
     }
+      
 
     public static void main(String[] args) {
 
         //ArrayList que almacena todas las prendas registradas
         ArrayList<Ropa> listaRopa = new ArrayList<>();
+
+        // ArrayList que almacena los clientes registrados
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+
+        //ArrayList que almacena los accesorios registrados
+        ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
+        
+        //ArrayList que almacena las ventas registradas
+        ArrayList<Venta> listaVentas = new ArrayList<>();
+
+        //Permite ingresar datos
+        Scanner teclado = new Scanner(System.in);
+
+
 
         // ArrayList que almacena los clientes registrados
         ArrayList<Cliente> listaClientes = new ArrayList<>();
@@ -195,10 +208,7 @@ public class Principal {
         Menu menu = new Menu();
         menu.setVisible(true);
         
-        //Inicializamos el formulario Registrar Prenda
-        RegistrarPrenda formRegistrarPrenda = new RegistrarPrenda();
-        
-        // Permite ingresar datos
+        //Permite ingresar datos
         Scanner teclado = new Scanner(System.in);
 
         int opcion;
@@ -438,7 +448,8 @@ public class Principal {
                     //Verifica que existan clientes
                     if (listaClientes.isEmpty()) {
                         System.out.println(
-                                "Error: no hay clientes registrados.");                 
+                                "Error: no hay clientes registrados.");
+                        break;                 
                     }
 
                     //Verifica que existan productos
@@ -446,6 +457,7 @@ public class Principal {
                             && listaAccesorios.isEmpty()) {
                         System.out.println(
                                 "Error: no hay productos registrados.");
+                        break;
                     }
                     Venta nuevaVenta = new Venta();
 
@@ -467,6 +479,7 @@ public class Principal {
 
                     if (codigoRepetido) {
                         System.out.println("Error: el codigo de venta ya existe.");
+                        break;
                     }
 
                     //Fecha
@@ -489,6 +502,7 @@ public class Principal {
 
                     if (clienteEncontrado == null) {
                         System.out.println("Error: cliente no encontrado.");
+                        break;
                     }
 
                     nuevaVenta.asociarCliente(
@@ -782,10 +796,39 @@ public class Principal {
                     System.out.println("Hasta luego.");
                     break;
                 }
+                case 26: {
+        System.out.println("\n=== FORMULARIO DE VENTAS ===");
+
+        if (listaClientes.isEmpty()) {
+        System.out.println("Primero debe registrar un cliente.");
+        break;
+        }
+
+        if (listaRopa.isEmpty() && listaAccesorios.isEmpty()) {
+        System.out.println("Primero debe registrar un producto.");
+        break;
+        }
+        
+        RegistrarVenta formulario = new RegistrarVenta(
+        listaClientes,
+        listaRopa,
+        listaAccesorios,
+        listaVentas
+        );
+
+         formulario.setDefaultCloseOperation(
+        javax.swing.JFrame.DISPOSE_ON_CLOSE
+         );
+
+        formulario.setLocationRelativeTo(null);
+        formulario.setVisible(true);
+
+        break;
+        }
             }
         }while(opcion != 25);
                       
         teclado.close();
       
-    }
+        }
 }
