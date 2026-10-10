@@ -133,7 +133,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         String dni = txtDni.getText().trim();
         String telefono = txtTelefono.getText().trim();
 
-// Validar que ningún campo esté vacío
+        // Validar que ningún campo esté vacío
         if (codigo.isEmpty() || nombre.isEmpty()
                 || dni.isEmpty() || telefono.isEmpty()) {
 
@@ -147,7 +147,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             return;
         }
 
-// Verificar que el código no esté registrado
+        // Verificar que el código no esté registrado
         for (Cliente c : Principal.listaClientes) {
 
             if (c.getCodigo() != null
@@ -165,17 +165,20 @@ public class RegistrarCliente extends javax.swing.JFrame {
             }
         }
 
-// Crear un nuevo objeto Cliente
+        // Crear un nuevo objeto Cliente
         Cliente cliente = new Cliente();
 
-// Asignar los datos utilizando el método agregar()
+        // Asignar los datos utilizando el método agregar()
         cliente.agregar(codigo, nombre, dni, telefono);
 
-// Validar los datos antes de registrarlos
+        // Validar los datos antes de registrarlos
         if (cliente.validarDatos()) {
 
             // Agregar el cliente a la colección compartida
             Principal.listaClientes.add(cliente);
+            
+            // Guardar los clientes en el archivo TXT
+            Principal.guardarTodosLosClientes();
 
             JOptionPane.showMessageDialog(
                     this,
@@ -227,7 +230,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
 
-// Cerrar el formulario actual
+        // Cerrar el formulario actual
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 

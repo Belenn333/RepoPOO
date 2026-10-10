@@ -161,6 +161,165 @@ public class Principal {
             System.out.println("Error al cargar los accesorios: " + e.getMessage());
         }
     }
+    
+    // Guarda todos los clientes registrados en un archivo TXT
+    public static void guardarTodosLosClientes() {
+
+        try {
+
+            File archivoClientes =
+                    new File("src/TXTs/clientes.txt");
+
+            File carpeta =
+                    archivoClientes.getParentFile();
+
+            if (!carpeta.exists()) {
+                carpeta.mkdirs();
+            }
+
+            FileWriter archivo =
+                    new FileWriter(archivoClientes);
+
+            for (Cliente c : listaClientes) {
+
+                archivo.write(
+                        c.getCodigo() + ";" +
+                        c.getNombre() + ";" +
+                        c.getDni() + ";" +
+                        c.getTelefono() + "\n"
+                );
+            }
+
+            archivo.close();
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "Error al guardar los clientes: "
+                    + e.getMessage());
+        }
+    }
+    
+    // Carga los clientes registrados desde un archivo TXT
+    public static void cargarClientes() {
+
+        try {
+
+            BufferedReader lector =
+                    new BufferedReader(
+                            new FileReader(
+                                    "src/TXTs/clientes.txt"));
+
+            String linea;
+
+            while ((linea = lector.readLine()) != null) {
+
+                String[] datos = linea.split(";");
+
+                Cliente cliente = new Cliente();
+
+                cliente.agregar(
+                        datos[0], // código
+                        datos[1], // nombre
+                        datos[2], // dni
+                        datos[3]  // teléfono
+                );
+
+                listaClientes.add(cliente);
+            }
+
+            lector.close();
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "No existe archivo de clientes o está vacío.");
+        }
+    }
+    
+    //Guarda todas las ventas registradas en un archivo TXT
+    public static void guardarTodasLasVentas() {
+
+        try {
+
+            FileWriter archivo = new FileWriter(
+                "D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\ventas.txt"
+            );
+
+            for(Venta v : listaVentas){
+
+                archivo.write(
+                    v.getCodigoVenta() + ";" +
+                    v.getCliente().getDni() + ";" +
+                    v.getFecha() + ";" +
+                    v.getSubtotal() + ";" +
+                    v.getIgv() + ";" +
+                    v.getTotal() + "\n"
+                );
+            }
+
+            archivo.close();
+
+        } catch(Exception e){
+
+            System.out.println("Error al guardar las ventas.");
+        }
+    }
+    
+    //Metodo para recuperar Ventas
+    public static void cargarVentas() {
+
+        try {
+
+            BufferedReader lector =
+                    new BufferedReader(
+                            new FileReader(
+                                    "D:\\Tecnicas de POO\\ProyectoFinal\\ProyectoTiendaRopa\\src\\TXTs\\ventas.txt"));
+
+            String linea;
+
+            while((linea = lector.readLine()) != null){
+
+                String[] datos = linea.split(";");
+
+                Venta venta = new Venta();
+
+                venta.setCodigoVenta(datos[0]);
+
+                String dni = datos[1];
+
+                venta.setFecha(datos[2]);
+
+                venta.setSubtotal(
+                        Double.parseDouble(datos[3]));
+
+                venta.setIgv(
+                        Double.parseDouble(datos[4]));
+
+                venta.setTotal(
+                        Double.parseDouble(datos[5]));
+
+                for(Cliente c : listaClientes){
+
+                    if(c.getDni().equals(dni)){
+
+                        venta.asociarCliente(c);
+                        break;
+                    }
+                }
+
+                listaVentas.add(venta);
+            }
+
+            lector.close();
+
+        } catch(Exception e){
+
+            System.out.println(
+                    "Error al cargar ventas: "
+                    + e.getMessage());
+        }
+    }
 
     // Presenta los datos en consola utilizando los getters de Ropa.
     // Compatible con la clase Ropa que usan los formularios de NetBeans.
@@ -178,8 +337,10 @@ public class Principal {
     public static void main(String[] args) {
 
         //Para que cargue primero el txt
+        cargarClientes();
         cargarPrendas();
         cargarAccesorios();
+        cargarVentas();
         
         //Inicializamos el Menu
         Menu menu = new Menu();

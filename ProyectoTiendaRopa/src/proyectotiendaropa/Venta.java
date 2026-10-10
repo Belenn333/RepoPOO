@@ -123,35 +123,16 @@ public class Venta {
         System.out.println("===========================");
     }
 
-    // Muestra el detalle completo de la venta
-    public void mostrarDetalle() {
-        System.out.println("\n=== DETALLE DE VENTA ===");
-        System.out.println("Codigo: " + codigoVenta);
-        System.out.println("Fecha: " + fecha);
+    // Devuelve los datos de la venta para mostrar en una tabla
+    public Object[] mostrar(boolean tabla){
 
-        if (cliente != null) {
-            System.out.println("Cliente: " + cliente.getNombre());
-        } else {
-            System.out.println("Cliente: No asociado");
-        }
-
-        System.out.println("\nPrendas:");
-        for (Ropa prenda : prendas) {
-            System.out.println("- " + prenda.getNombre()
-                    + " | Precio: S/ " + prenda.getPrecio());
-        }
-
-        System.out.println("\nAccesorios:");
-        for (Accesorio accesorio : accesorios) {
-            System.out.println("- " + accesorio.getNombre()
-                    + " | Precio: S/ " + accesorio.getPrecio());
-        }
-
-        calcularTotal();
-
-        System.out.println("\nSubtotal: S/ " + subtotal);
-        System.out.println("IGV: S/ " + igv);
-        System.out.println("Total: S/ " + total);
+        return new Object[]{
+            codigoVenta,
+            cliente != null ? cliente.getDni() : "",
+            fecha,
+            subtotal,
+            total
+        };
     }
     
     // Actualiza el stock de los productos despues de realizar la venta
@@ -221,6 +202,10 @@ public class Venta {
         this.total = total;
     }
     
+    public Cliente getCliente() {
+        return cliente;
+    }
+
    // Primera version del metodo calcularTotal: recibe el subtotal.
    // Calcula el total de la venta incluyendo el IGV del 18%.
     public double calcularTotal(double subtotal){
@@ -266,5 +251,21 @@ public class Venta {
         } else {
             System.out.println("Error: subtotal o IGV invalido.");
         }
+    }
+    
+    //Buscar por código
+    public boolean buscar(String codigoVenta){
+        return this.codigoVenta.equalsIgnoreCase(codigoVenta);
+    }
+
+    //Buscar por DNI
+    public boolean buscar(String dni, boolean porDni){
+        return cliente != null
+                && cliente.getDni().equalsIgnoreCase(dni);
+    }
+    
+    // Verifica si la venta coincide con el código
+    public boolean eliminar(String codigo){
+        return codigoVenta.equalsIgnoreCase(codigo);
     }
 }

@@ -12,6 +12,7 @@ import proyectotiendaropa.vistaAccesorio.ModificarAccesorio;
 import proyectotiendaropa.vistaAccesorio.ListaAccesorio;
 import proyectotiendaropa.vistaCliente.ListaCliente;
 import proyectotiendaropa.vistaCliente.RegistrarCliente;
+import proyectotiendaropa.vistaventa.ListaVenta;
 import proyectotiendaropa.vistaventa.RegistrarVenta;
 
 /**
@@ -56,6 +57,7 @@ public class Menu extends javax.swing.JFrame {
         opListaCliente = new javax.swing.JMenuItem();
         mnVentas = new javax.swing.JMenu();
         opRegistrarVenta = new javax.swing.JMenuItem();
+        opListaVenta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Sistema Tienda Ropa");
@@ -113,6 +115,10 @@ public class Menu extends javax.swing.JFrame {
         opRegistrarVenta.setText("Registrar Venta");
         opRegistrarVenta.addActionListener(this::opRegistrarVentaActionPerformed);
         mnVentas.add(opRegistrarVenta);
+
+        opListaVenta.setText("Lista Venta");
+        opListaVenta.addActionListener(this::opListaVentaActionPerformed);
+        mnVentas.add(opListaVenta);
 
         mbTiendaRopa.add(mnVentas);
 
@@ -203,6 +209,12 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_opListaClienteActionPerformed
 
+    private void opListaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opListaVentaActionPerformed
+        // TODO add your handling code here:
+        new ListaVenta().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_opListaVentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -241,6 +253,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu mnPrenda;
     private javax.swing.JMenu mnVentas;
     private javax.swing.JMenuItem opListaCliente;
+    private javax.swing.JMenuItem opListaVenta;
     private javax.swing.JMenuItem opModificarCliente;
     private javax.swing.JMenuItem opRegistrarCliente;
     private javax.swing.JMenuItem opRegistrarVenta;
