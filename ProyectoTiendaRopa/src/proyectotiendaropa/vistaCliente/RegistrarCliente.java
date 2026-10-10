@@ -164,6 +164,22 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 return;
             }
         }
+        
+        for (Cliente c : Principal.listaClientes) {
+
+        if (c.getDni() != null && c.getDni().equals(dni)) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El DNI ya se encuentra registrado.",
+                    "DNI duplicado",
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            txtDni.requestFocus();
+            return;
+            }
+        }
 
         // Crear un nuevo objeto Cliente
         Cliente cliente = new Cliente();
