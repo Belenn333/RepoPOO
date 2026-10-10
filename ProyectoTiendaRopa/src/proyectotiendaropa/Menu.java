@@ -24,6 +24,8 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        //Centra la ventana en la pantalla
+        setLocationRelativeTo(null);
         Principal.asegurarCargaAccesorios();
     }
 

@@ -23,6 +23,8 @@ public class RegistrarPrenda extends javax.swing.JFrame {
      */
     public RegistrarPrenda() {
         initComponents();
+        //Centra la ventana en la pantalla
+        setLocationRelativeTo(null);
     }
 
     /**
