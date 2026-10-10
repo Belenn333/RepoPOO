@@ -10,6 +10,8 @@ import proyectotiendaropa.vistaPrenda.ListaPrenda;
 import proyectotiendaropa.vistaAccesorio.RegistrarAccesorio;
 import proyectotiendaropa.vistaAccesorio.ModificarAccesorio;
 import proyectotiendaropa.vistaAccesorio.ListaAccesorio;
+import proyectotiendaropa.vistaCliente.ListaCliente;
+import proyectotiendaropa.vistaCliente.RegistrarCliente;
 import proyectotiendaropa.vistaventa.RegistrarVenta;
 
 /**
@@ -49,6 +51,9 @@ public class Menu extends javax.swing.JFrame {
         miModificarAccesorio = new javax.swing.JMenuItem();
         miListaAccesorio = new javax.swing.JMenuItem();
         mnCliente = new javax.swing.JMenu();
+        opRegistrarCliente = new javax.swing.JMenuItem();
+        opModificarCliente = new javax.swing.JMenuItem();
+        opListaCliente = new javax.swing.JMenuItem();
         mnVentas = new javax.swing.JMenu();
         opRegistrarVenta = new javax.swing.JMenuItem();
 
@@ -88,6 +93,19 @@ public class Menu extends javax.swing.JFrame {
         mbTiendaRopa.add(mnAccesorios);
 
         mnCliente.setText("Cliente");
+
+        opRegistrarCliente.setText("Registrar Cliente");
+        opRegistrarCliente.addActionListener(this::opRegistrarClienteActionPerformed);
+        mnCliente.add(opRegistrarCliente);
+
+        opModificarCliente.setText("Modificar Cliente");
+        opModificarCliente.addActionListener(this::opModificarClienteActionPerformed);
+        mnCliente.add(opModificarCliente);
+
+        opListaCliente.setText("Lista cliente");
+        opListaCliente.addActionListener(this::opListaClienteActionPerformed);
+        mnCliente.add(opListaCliente);
+
         mbTiendaRopa.add(mnCliente);
 
         mnVentas.setText("Ventas");
@@ -166,7 +184,24 @@ public class Menu extends javax.swing.JFrame {
                 Principal.listaVentas);
 
         frm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_opRegistrarVentaActionPerformed
+
+    private void opRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opRegistrarClienteActionPerformed
+        // TODO add your handling code here:
+        new RegistrarCliente().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_opRegistrarClienteActionPerformed
+
+    private void opModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opModificarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_opModificarClienteActionPerformed
+
+    private void opListaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opListaClienteActionPerformed
+        // TODO add your handling code here:
+        new ListaCliente().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_opListaClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +240,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu mnCliente;
     private javax.swing.JMenu mnPrenda;
     private javax.swing.JMenu mnVentas;
+    private javax.swing.JMenuItem opListaCliente;
+    private javax.swing.JMenuItem opModificarCliente;
+    private javax.swing.JMenuItem opRegistrarCliente;
     private javax.swing.JMenuItem opRegistrarVenta;
     // End of variables declaration//GEN-END:variables
 }
