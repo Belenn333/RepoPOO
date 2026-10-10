@@ -4,6 +4,10 @@
  */
 package proyectotiendaropa;
 
+import proyectotiendaropa.vistaPrenda.RegistrarPrenda;
+import proyectotiendaropa.vistaPrenda.ModificarPrenda;
+import proyectotiendaropa.vistaPrenda.ListaPrenda;
+
 /**
  *
  * @author USUARIO
