@@ -1,28 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package proyectotiendaropa;
 
-/**
- *
- * @author Ivan
- */
 public class Accesorio {
 
-    // Declaracion de los cuatro atributos de la clase Accesorio.
-    // Se utiliza private para aplicar encapsulamiento.
+    // Declaracion de atributos Clase Accesorio.
     private String codigo;
     private String nombre;
+    private String color;
     private double precio;
     private int stock;
 
-    // Metodo de acceso al codigo que identifica al accesorio.
+    // Aplicando encapsulamiento con getters y setters.
     public String getCodigo() {
         return codigo;
     }
 
-    // Valida que el codigo no sea nulo ni este vacio.
     public void setCodigo(String codigo) {
         if (codigo == null || codigo.trim().isEmpty()) {
             System.out.println("Error: el codigo es obligatorio.");
@@ -31,12 +22,10 @@ public class Accesorio {
         }
     }
 
-    // Metodo de acceso al nombre del accesorio.
     public String getNombre() {
         return nombre;
     }
 
-    // Valida que el nombre no sea nulo ni este vacio.
     public void setNombre(String nombre) {
         if (nombre == null || nombre.trim().isEmpty()) {
             System.out.println("Error: el nombre es obligatorio.");
@@ -45,12 +34,23 @@ public class Accesorio {
         }
     }
 
-    // Metodo de acceso al precio del accesorio.
+    // Color del accesorio.
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        if (color == null || color.trim().isEmpty()) {
+            System.out.println("Error: el color es obligatorio.");
+        } else {
+            this.color = color;
+        }
+    }
+
     public double getPrecio() {
         return precio;
     }
 
-    // Valida que el precio no sea negativo.
     public void setPrecio(double precio) {
         if (precio >= 0) {
             this.precio = precio;
@@ -59,12 +59,10 @@ public class Accesorio {
         }
     }
 
-    // Metodo de acceso a la cantidad disponible.
     public int getStock() {
         return stock;
     }
 
-    // Valida que el stock no sea negativo.
     public void setStock(int stock) {
         if (stock >= 0) {
             this.stock = stock;
@@ -73,91 +71,113 @@ public class Accesorio {
         }
     }
 
-    // Muestra los cuatro atributos del accesorio.
+    // ----------- APLICANDO SOBRECARGA DE METODOS -----------
+
+    // Busca un accesorio por codigo.
+    // Devuelve true si coincide y mantiene la salida por consola de Principal.
+    public boolean buscar(String codigo) {
+        if (codigo == null || codigo.trim().isEmpty()) {
+            System.out.println("Error: ingrese un codigo para buscar.");
+            return false;
+        }
+
+        if (this.codigo != null && this.codigo.equalsIgnoreCase(codigo)) {
+            mostrar();
+            return true;
+        }
+        System.out.println("No se encontro un accesorio con ese codigo.");
+        return false;
+    }
+
+    // Sobrecarga: busca un accesorio por nombre y color.
+    public boolean buscar(String nombre, String color) {
+        return this.nombre != null && this.color != null
+                && nombre != null && color != null
+                && this.nombre.equalsIgnoreCase(nombre)
+                && this.color.equalsIgnoreCase(color);
+    }
+
+    // Sobrecarga: busca por nombre y stock minimo.
+    // Devuelve el stock disponible o -1 si no cumple los criterios.
+    public int buscar(String nombre, int stockMinimo) {
+        if (nombre == null || nombre.trim().isEmpty() || stockMinimo < 0) {
+            return -1;
+        }
+        if (this.nombre != null
+                && this.nombre.equalsIgnoreCase(nombre)
+                && this.stock >= stockMinimo) {
+            return this.stock;
+        }
+        return -1;
+    }
+
+    // Metodo para registrar un nuevo accesorio.
+    public boolean agregar(String codigo, String nombre, double precio, int stock) {
+        if (codigo != null && !codigo.trim().isEmpty()
+                && nombre != null && !nombre.trim().isEmpty()
+                && precio > 0 && stock >= 0) {
+            this.codigo = codigo;
+            this.nombre = nombre;
+            this.precio = precio;
+            this.stock = stock;
+            return true;
+        }
+        return false;
+    }
+
+    // Sobrecarga para registrar un accesorio incluyendo el color.
+    public boolean agregar(String codigo, String nombre, String color,
+            double precio, int stock) {
+        if (codigo != null && !codigo.trim().isEmpty()
+                && nombre != null && !nombre.trim().isEmpty()
+                && color != null && !color.trim().isEmpty()
+                && precio > 0 && stock >= 0) {
+            this.codigo = codigo;
+            this.nombre = nombre;
+            this.color = color;
+            this.precio = precio;
+            this.stock = stock;
+            return true;
+        }
+        return false;
+    }
+
+    // Sobrecarga para modificar solamente nombre y color.
+    // No modifica el codigo, el precio ni el stock.
+    public boolean agregar(String nombre, String color) {
+        if (nombre != null && !nombre.trim().isEmpty()
+                && color != null && !color.trim().isEmpty()) {
+            this.nombre = nombre;
+            this.color = color;
+            return true;
+        }
+        return false;
+    }
+
+    // Elimina el accesorio si el codigo coincide.
+    // La eliminacion del ArrayList se realiza desde Principal o el formulario.
+    public boolean eliminar(String codigo) {
+        return this.codigo != null && codigo != null
+                && this.codigo.equalsIgnoreCase(codigo);
+    }
+
+    // Devuelve los datos para una JTable.
+    public Object[] mostrar(boolean tabla) {
+        return new Object[]{
+            codigo,
+            nombre,
+            color,
+            precio,
+            stock
+        };
+    }
+
+    // Mantiene el metodo mostrar() que utiliza Principal.java.
     public void mostrar() {
         System.out.println("Codigo: " + codigo);
         System.out.println("Nombre: " + nombre);
+        System.out.println("Color: " + color);
         System.out.println("Precio: " + precio);
         System.out.println("Stock: " + stock);
-    }
-
-    //-----------APLICANDO SOBRECARGA DE METODOS------------------
-
-    // Metodo buscar(String codigo).
-    // Busca un accesorio utilizando su codigo.
-    // Si encuentra coincidencia, muestra toda su informacion.
-    public void buscar(String codigo) {
-
-        // Manejo de errores: verifica que el codigo de busqueda
-        // no sea nulo, vacio o formado solamente por espacios.
-        if (codigo == null || codigo.trim().isEmpty()) {
-            System.out.println("Error: ingrese un codigo para buscar.");
-            return;
-        }
-
-        // Manejo de errores: comprueba que el accesorio
-        // tenga un codigo asignado antes de buscar.
-        if (this.codigo == null || this.codigo.trim().isEmpty()) {
-            System.out.println("Error: el accesorio no tiene codigo asignado.");
-            return;
-        }
-
-        // Verifica que exista un codigo asignado y compara los codigos
-        // sin distinguir entre mayusculas y minusculas.
-        if (this.codigo != null
-                && this.codigo.equalsIgnoreCase(codigo)) {
-
-            // Muestra los datos del accesorio encontrado.
-            mostrar();
-        } else {
-            // Informa cuando el codigo buscado no coincide.
-            System.out.println("No se encontro un accesorio con ese codigo.");
-        }
-    }
-
-    // Metodo sobrecargado buscar(String nombre, int stockMinimo).
-    // Busca por nombre y cantidad minima disponible.
-    // Si cumple ambos criterios, devuelve el stock del accesorio.
-    public int buscar(String nombre, int stockMinimo) {
-
-        // Manejo de errores: verifica que el nombre de busqueda
-        // no sea nulo, vacio o formado solamente por espacios.
-        if (nombre == null || nombre.trim().isEmpty()) {
-            System.out.println("Error: ingrese un nombre para buscar.");
-            return -1;
-        }
-
-        // Manejo de errores: evita buscar con una cantidad negativa.
-        if (stockMinimo < 0) {
-            System.out.println("Error: el stock minimo no puede ser negativo.");
-            return -1;
-        }
-
-        // Manejo de errores: comprueba que el accesorio
-        // tenga un nombre asignado antes de buscar.
-        if (this.nombre == null || this.nombre.trim().isEmpty()) {
-            System.out.println("Error: el accesorio no tiene nombre asignado.");
-            return -1;
-        }
-
-        // Verifica el nombre, la cantidad solicitada y el stock.
-        if (this.nombre != null
-                && this.nombre.equalsIgnoreCase(nombre)
-                && stockMinimo >= 0
-                && this.stock >= stockMinimo) {
-
-            // Devuelve la cantidad disponible.
-            return this.stock;
-        }
-
-        // Informa la causa por la que no se obtuvo una coincidencia.
-        if (!this.nombre.equalsIgnoreCase(nombre)) {
-            System.out.println("No se encontro un accesorio con ese nombre.");
-        } else {
-            System.out.println("El accesorio no tiene suficiente stock.");
-        }
-
-        // Devuelve -1 si no se encuentra una coincidencia valida.
-        return -1;
     }
 }
