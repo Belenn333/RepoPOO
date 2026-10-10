@@ -162,6 +162,18 @@ public class Principal {
         }
     }
 
+    // Presenta los datos en consola utilizando los getters de Ropa.
+    // Compatible con la clase Ropa que usan los formularios de NetBeans.
+    private static void mostrarPrendaEnConsola(Ropa r) {
+        System.out.println("Codigo: " + r.getCodigo());
+        System.out.println("Nombre: " + r.getNombre());
+        System.out.println("Talla: " + r.getTalla());
+        System.out.println("Categoria: " + r.getCategoria());
+        System.out.println("Color: " + r.getColor());
+        System.out.println("Precio: " + r.getPrecio());
+        System.out.println("Stock: " + r.getStock());
+    }
+
     public static void main(String[] args) {
 
         //ArrayList que almacena todas las prendas registradas
@@ -171,7 +183,9 @@ public class Principal {
         ArrayList<Cliente> listaClientes = new ArrayList<>();
 
         // ArrayList que almacena los accesorios registrados.
-        // La lista de accesorios esta declarada al inicio de Principal.
+        // La lista compartida de accesorios se declara al inicio de Principal.
+        // Lista de ventas conservada del modulo de main.
+        ArrayList<Venta> listaVentas = new ArrayList<>();
 
         //Para que cargue primero el txt
         cargarPrendas();
@@ -203,7 +217,7 @@ public class Principal {
             System.out.println("\n=== MODULO CLIENTES ===");
             System.out.println("8. Registrar cliente");
             System.out.println("9. Modificar cliente");
-            System.out.println("10. Buscar cliente por __");
+            System.out.println("10. Buscar cliente por codigo o nombre");
             System.out.println("11. Listar cliente");
             System.out.println("12. Elimininar cliente");
             System.out.println("\n=== MODULO ACCESORIOS ===");
@@ -214,7 +228,13 @@ public class Principal {
             System.out.println("17. Buscar accesorio por nombre");
             System.out.println("18. Consultar stock de accesorio");
             System.out.println("19. Listar accesorios registrados");
-            System.out.println("20. Salir");
+            System.out.println("\n=== MODULO VENTAS ===");
+            System.out.println("20. Registrar venta");
+            System.out.println("21. Consultar ventas realizadas");
+            System.out.println("22. Buscar venta por codigo");
+            System.out.println("23. Mostrar detalle de venta");
+            System.out.println("24. Generar comprobante de venta");
+            System.out.println("25. Salir");
             
             System.out.println("------------------");
             System.out.print("Ingrese opcion: ");
@@ -223,7 +243,241 @@ public class Principal {
 
             switch (opcion) {
 
+                case 1: {
+                    System.out.println("\n=== REGISTRAR PRENDA ===");
+
+                    String respuesta;
+
+                    do {
+                        //------------ VALIDACION DE AGREGAR------------------
+                        //Solicita el código de la nueva prenda
+                        System.out.print("Codigo: ");
+                        String codigo = teclado.nextLine();
+                        //Variable que permite verificar si el código de clase Ropa ya existe
+                        boolean existe = false;
+
+                        //Recorre el ArrayList para validar que el código sea único
+                        for (Ropa r : listaRopa) {
+
+                            //Compara el código ingresado con los códigos ya registrados
+                            if (r.getCodigo().equalsIgnoreCase(codigo)) {
+
+                                //Si encuentra coincidencia, marca el código como existente
+                                existe = true;
+
+                                //Finaliza el recorrido
+                                break;
+                            }
+                        }
+
+                        //Si el código no existe, se procede a registrar la prenda
+                        if (!existe) {
+
+                            //Solicita el nombre de la prenda
+                            System.out.print("Nombre: ");
+                            String nombre = teclado.nextLine();
+
+                            //Solicita la talla
+                            System.out.print("Talla: ");
+                            String talla = teclado.nextLine();
+
+                            //Solicita la categoría de la prenda
+                            System.out.print("Categoria: ");
+                            String categoria = teclado.nextLine();
+
+                            //Solicita el color de la prenda
+                            System.out.print("Color: ");
+                            String color = teclado.nextLine();
+
+                            //Solicita el precio de venta
+                            System.out.print("Precio: ");
+                            double precio = teclado.nextDouble();
+
+                            //Solicita la cantidad disponible en stock
+                            System.out.print("Stock: ");
+                            int stock = teclado.nextInt();
+
+                            //Valida que el precio Y stock sea mayor a cero
+                            if (precio <= 0 && stock >= 0) {
+                                System.out.println("Error: el precio debe ser mayor a cero.");
+                            }
+
+                            //Limpia el buffer
+                            teclado.nextLine();
+
+                            //Crea un nuevo objeto de la clase Ropa
+                            Ropa ropa = new Ropa();
+
+                            //Registra los datos de la nueva prenda
+                            ropa.agregar(codigo,
+                                    nombre,
+                                    talla,
+                                    categoria,
+                                    color,
+                                    precio,
+                                    stock);
+
+                            // Agrega la prenda al ArrayList
+                            listaRopa.add(ropa);
+                        } //Validacion de codigo existente con mensaje de error
+                        else {
+                            System.out.println("Error: el codigo ya existe.");
+                        }
+
+                        System.out.print("¿Desea registrar otra prenda? (S/N): ");
+
+                        respuesta = teclado.nextLine();
+
+                    } while (respuesta.equalsIgnoreCase("S"));
+                    break;
+                }
+                case 2: {
+                    System.out.println("\n=== LISTADO DE PRENDAS ===");
+                    //Verifica si existen prendas registradas               
+                    if (listaRopa.isEmpty()) {
+                        System.out.println("-------------------");
+                        System.out.println("No hay prendas registradas.");
+                    } else {
+                        //Recorre y muestra todas las prendas registradas
+                        for (Ropa r : listaRopa) {
+                            System.out.println("-------------------");
+                            mostrarPrendaEnConsola(r);
+                        }
+                    }
+                    break;
+                }
+
+                case 3: {
+                    System.out.println("\n=== BUSCAR PRENDA POR CODIGO ===");
+                    //Solicita el código de la prenda a buscar
+                    System.out.print("Ingrese codigo: ");
+                    String codigoBuscado = teclado.nextLine();
+
+                    //Variable que indica si se encontró la prenda
+                    //Se inicializa en false
+                    boolean encontrado = false;
+
+                    //Se recorre todas las prendas registradas
+                    for (Ropa r : listaRopa) {
+                        //Compara el código ingresado con el código de la prenda
+                        if (r.getCodigo().equalsIgnoreCase(codigoBuscado)) {
+                            System.out.println("-------------------");
+                            //Llama al método buscar de la clase Ropa
+                            r.buscar(codigoBuscado);
+                            mostrarPrendaEnConsola(r);
+                            //Marca la prenda como encontrada
+                            encontrado = true;
+                        }
+                    }
+                    //Si no se encontró ninguna coincidencia, muestra un mensaje
+                    if (!encontrado) {
+                        System.out.println("-------------------");
+                        System.out.println("Prenda no encontrada.");
+                        System.out.println("-------------------");
+                    }
+                    break;
+                }
+                case 4: {
+                    System.out.println("\n=== BUSCAR PRENDA POR NOMBRE ===");
+                    //Solicita el nombre de la prenda
+                    System.out.print("Nombre: ");
+                    String nombreBuscado = teclado.nextLine();
+
+                    //Solicita el color de la prenda
+                    System.out.print("Color: ");
+                    String colorBuscado = teclado.nextLine();
+
+                    //Variable que indica si se encontró una coincidencia
+                    boolean existePrenda = false;
+
+                    for (Ropa r : listaRopa) {
+                        if (r.getNombre().equalsIgnoreCase(nombreBuscado)
+                                && r.getColor().equalsIgnoreCase(colorBuscado)) {
+                            System.out.println("-------------------");
+                            //Llama al método sobrecargado buscar(nombre, color)
+                            r.buscar(nombreBuscado, colorBuscado);
+                            mostrarPrendaEnConsola(r);
+                            existePrenda = true;
+                        }
+                    }
+
+                    if (!existePrenda) {
+                        System.out.println("-------------------");
+                        System.out.println("Prenda no encontrada.");
+                        System.out.println("-------------------");
+                    }
+                    break;
+                }
+                case 5: {
+                    System.out.println("\n=== STOCK DE PRENDAS ===");
+                    //Solicita el código de la prenda
+                    System.out.print("Ingrese codigo: ");
+                    String cod = teclado.nextLine();
+
+                    //Variable para verificar si la prenda existe
+                    boolean existe = false;
+
+                    //Recorre la lista de prendas
+                    for (Ropa r : listaRopa) {
+
+                        //Compara el código ingresado con el código registrado
+                        if (r.getCodigo().equalsIgnoreCase(cod)) {
+
+                            //Muestra la cantidad disponible en stock
+                            System.out.println("Stock disponible: "
+                                    + r.getStock());
+
+                            //Marca la prenda como encontrada
+                            existe = true;
+                        }
+                    }
+
+                    //Si no se encontró la prenda
+                    if (!existe) {
+                        System.out.println("-------------------");
+                        System.out.println("Prenda no encontrada.");
+                        System.out.println("-------------------");
+                    }
+
+                    break;
+                }
+                case 6: {
+                    
+                    System.out.println("\n=== MODIFICAR PRENDA ===");
+
+                    System.out.print("Codigo de la prenda: ");
+                    String codigoMod = teclado.nextLine();
+
+                    boolean modificada = false;
+                    //Recorre la lista de prendas
+                    for (Ropa r : listaRopa) {
+
+                        if (r.getCodigo().equalsIgnoreCase(codigoMod)) {
+
+                            System.out.print("Nuevo precio: ");
+                            double nuevoPrecio = teclado.nextDouble();
+
+                            System.out.print("Nuevo stock: ");
+                            int nuevoStock = teclado.nextInt();
+                            teclado.nextLine();
+
+                            r.setPrecio(nuevoPrecio);
+                            r.setStock(nuevoStock);
+
+                            System.out.println("Prenda modificada.");
+
+                            modificada = true;
+                        }
+                    }
+
+                    if (!modificada) {
+                        System.out.println("Prenda no encontrada.");
+                    }
+
+                    break;
+                }
                 case 7: {
+                    System.out.println("\n=== ELIMINAR PRENDA ===");
                     //Solicita el código de la prenda que se desea eliminar
                     System.out.print("Codigo a eliminar: ");
                     String codigoEliminar = teclado.nextLine();
@@ -545,7 +799,6 @@ public class Principal {
                     }
                     break;
                 }
-
                 // RF15. Eliminar accesorio por codigo.
                 case 15: {
                     System.out.println("\n=== ELIMINAR ACCESORIO ===");
@@ -647,16 +900,362 @@ public class Principal {
                     }
                     break;
                 }
-
-                // RF20. Salir del programa.
+                
                 case 20: {
+                    System.out.println(
+                            "\n=== REGISTRAR VENTA ===");
+
+                    //Verifica que existan clientes
+                    if (listaClientes.isEmpty()) {
+                        System.out.println(
+                                "Error: no hay clientes registrados.");                 
+                    }
+
+                    //Verifica que existan productos
+                    if (listaRopa.isEmpty()
+                            && listaAccesorios.isEmpty()) {
+                        System.out.println(
+                                "Error: no hay productos registrados.");
+                    }
+                    Venta nuevaVenta = new Venta();
+
+                    //Codigo de venta
+                    System.out.print(
+                            "Codigo de venta: ");
+
+                    String codigoVenta =
+                            teclado.nextLine();
+
+                    //Valida codigo duplicado
+                    boolean codigoRepetido = false;
+
+                    for (Venta v : listaVentas) {
+                        if (v.getCodigoVenta() != null && v.getCodigoVenta().equalsIgnoreCase(codigoVenta)) {
+                            codigoRepetido = true;
+                        }
+                    }
+
+                    if (codigoRepetido) {
+                        System.out.println("Error: el codigo de venta ya existe.");
+                    }
+
+                    //Fecha
+                    System.out.print("Fecha de la venta: ");
+                    String fechaVenta = teclado.nextLine();
+
+                    //Cliente
+                    System.out.print("Codigo del cliente: ");
+                    String codigoCliente = teclado.nextLine();
+
+                    Cliente clienteEncontrado = null;
+
+                    for (Cliente c : listaClientes) {
+                        if (c.getCodigo().equalsIgnoreCase(codigoCliente)) {
+
+                            clienteEncontrado = c;
+                            break;
+                        }
+                    }
+
+                    if (clienteEncontrado == null) {
+                        System.out.println("Error: cliente no encontrado.");
+                    }
+
+                    nuevaVenta.asociarCliente(
+                            clienteEncontrado);
+
+
+                    //==============================================
+                    // AGREGAR PRENDAS
+                    //==============================================
+                    if (!listaRopa.isEmpty()) {
+
+                        System.out.print(
+                                "¿Desea agregar prendas? (S/N): ");
+
+                        String deseaPrenda =
+                                teclado.nextLine();
+
+                        if (deseaPrenda.equalsIgnoreCase("S")) {
+
+                            String agregarOtraPrenda;
+
+                            do {
+
+                                System.out.print(
+                                        "Codigo de la prenda: ");
+
+                                String codigoPrenda =
+                                        teclado.nextLine();
+
+                                Ropa prendaEncontrada = null;
+
+                                for (Ropa r : listaRopa) {
+
+                                    if (r.getCodigo()
+                                            .equalsIgnoreCase(
+                                                    codigoPrenda)) {
+
+                                        prendaEncontrada = r;
+                                        break;
+                                    }
+                                }
+
+                                if (prendaEncontrada != null) {
+
+                                    nuevaVenta.agregarPrenda(
+                                            prendaEncontrada);
+
+                                } else {
+
+                                    System.out.println(
+                                            "Error: prenda no encontrada.");
+                                }
+
+                                System.out.print(
+                                        "¿Desea agregar otra prenda? (S/N): ");
+
+                                agregarOtraPrenda =
+                                        teclado.nextLine();
+
+                            } while (agregarOtraPrenda
+                                    .equalsIgnoreCase("S"));
+                        }
+                    }
+
+
+                    //==============================================
+                    // AGREGAR ACCESORIOS
+                    //==============================================
+
+                    if (!listaAccesorios.isEmpty()) {
+
+                        System.out.print(
+                                "¿Desea agregar accesorios? (S/N): ");
+
+                        String deseaAccesorio =
+                                teclado.nextLine();
+
+                        if (deseaAccesorio
+                                .equalsIgnoreCase("S")) {
+
+                            String agregarOtroAccesorio;
+
+                            do {
+
+                                System.out.print(
+                                        "Codigo del accesorio: ");
+
+                                String codigoAccesorio =
+                                        teclado.nextLine();
+
+                                Accesorio accesorioEncontrado =
+                                        null;
+
+                                for (Accesorio a
+                                        : listaAccesorios) {
+
+                                    if (a.getCodigo()
+                                            .equalsIgnoreCase(
+                                                    codigoAccesorio)) {
+
+                                        accesorioEncontrado = a;
+                                        break;
+                                    }
+                                }
+
+                                if (accesorioEncontrado != null) {
+
+                                    nuevaVenta.agregarAccesorio(
+                                            accesorioEncontrado);
+
+                                } else {
+
+                                    System.out.println(
+                                            "Error: accesorio no encontrado.");
+                                }
+
+                                System.out.print(
+                                        "¿Desea agregar otro accesorio? (S/N): ");
+
+                                agregarOtroAccesorio =
+                                        teclado.nextLine();
+
+                            } while (agregarOtroAccesorio
+                                    .equalsIgnoreCase("S"));
+                        }
+                    }
+
+
+                    //Registra la venta
+                    nuevaVenta.registrarVenta(
+                            codigoVenta,
+                            fechaVenta);
+
+                    //Actualiza el stock
+                    nuevaVenta.actualizarStock();
+
+                    //Guarda la venta
+                    listaVentas.add(nuevaVenta);
+
+                    System.out.println(
+                            "-------------------");
+
+                    System.out.println(
+                            "Total de la venta: S/ "
+                            + nuevaVenta.getTotal());
+
+                    System.out.println(
+                            "Venta guardada correctamente.");
+
+                    break;
+                }
+
+
+                //==================================================
+                // CONSULTAR VENTAS REALIZADAS
+                //==================================================
+                case 21: {
+
+                    System.out.println(
+                            "\n=== VENTAS REALIZADAS ===");
+
+                    if (listaVentas.isEmpty()) {
+
+                        System.out.println(
+                                "No hay ventas registradas.");
+
+                    } else {
+
+                        for (Venta v : listaVentas) {
+                            System.out.println(
+                                    "-------------------");
+                            System.out.println(
+                                    "Codigo: "
+                                    + v.getCodigoVenta());
+                            System.out.println(
+                                    "Fecha: "
+                                    + v.getFecha());
+                            System.out.println(
+                                    "Total: S/ "
+                                    + v.getTotal());
+                        }
+                    }
+
+                    break;
+                }
+
+
+                //==================================================
+                // BUSCAR VENTA POR CODIGO
+                //==================================================
+
+                case 22: {
+
+                    System.out.println(
+                            "\n=== BUSCAR VENTA ===");
+
+                    System.out.print(
+                            "Ingrese codigo de venta: ");
+
+                    String codigoBuscarVenta =
+                            teclado.nextLine();
+
+                    Venta ventaEncontrada = null;
+
+                    for (Venta v : listaVentas) {
+
+                        if (v.getCodigoVenta()
+                                .equalsIgnoreCase(
+                                        codigoBuscarVenta)) {
+
+                            ventaEncontrada = v;
+                            break;
+                        }
+                    }
+
+                    if (ventaEncontrada != null) {
+                        System.out.println(
+                                "Venta encontrada.");
+                        ventaEncontrada.mostrarDetalle();
+                    } else {
+                        System.out.println(
+                                "Venta no encontrada.");
+                    }
+                    break;
+                }
+                //==================================================
+                // MOSTRAR DETALLE DE VENTA
+                //==================================================
+                case 23: {
+                    System.out.println(
+                            "\n=== DETALLE DE VENTA ===");
+                    System.out.print(
+                            "Ingrese codigo de venta: ");
+                    String codigoDetalle =
+                            teclado.nextLine();
+
+                    Venta ventaDetalle = null;
+
+                    for (Venta v : listaVentas) {
+                        if (v.getCodigoVenta()
+                                .equalsIgnoreCase(
+                                        codigoDetalle)) {
+                            ventaDetalle = v;
+                        }
+                    }
+
+                    if (ventaDetalle != null) {
+                        ventaDetalle.mostrarDetalle();
+                    } else {
+                        System.out.println(
+                                "Venta no encontrada.");
+                    }
+                    break;
+                }
+
+                //==================================================
+                // GENERAR COMPROBANTE
+                //==================================================
+                case 24: {
+                    System.out.println(
+                            "\n=== GENERAR COMPROBANTE ===");
+                    System.out.print(
+                            "Ingrese codigo de venta: ");
+                    String codigoComprobante =
+                            teclado.nextLine();
+                    Venta ventaComprobante = null;
+
+                    for (Venta v : listaVentas) {
+                        if (v.getCodigoVenta()
+                                .equalsIgnoreCase(
+                                        codigoComprobante)) {
+                            ventaComprobante = v;
+                            break;
+                        }
+                    }
+
+                    if (ventaComprobante != null) {
+                        ventaComprobante
+                                .generarComprobante();
+                    } else {
+                        System.out.println(
+                                "Venta no encontrada.");
+                    }
+                    break;
+                }
+
+                //==================================================
+                // SALIR
+                //==================================================
+                case 25: {
                     System.out.println("Hasta luego.");
                     break;
                 }
             }
-        }while(opcion != 20);
+        }while(opcion != 25);
                       
         teclado.close();
-        
+      
     }
 }
