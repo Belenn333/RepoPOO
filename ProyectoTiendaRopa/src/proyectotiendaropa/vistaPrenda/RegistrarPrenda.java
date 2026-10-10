@@ -4,6 +4,7 @@
  */
 package proyectotiendaropa.vistaPrenda;
 
+import javax.swing.JOptionPane;
 import proyectotiendaropa.Menu;
 import proyectotiendaropa.Principal;
 import proyectotiendaropa.Ropa;
@@ -212,26 +213,24 @@ public class RegistrarPrenda extends javax.swing.JFrame {
         // Registra la prenda si el código no existe
         if(!existe){
 
-            Ropa ropa = new Ropa();
+        Ropa ropa = new Ropa();
 
-            ropa.agregar(
-                    codigo,
-                    nombre,
-                    talla,
-                    categoria,
-                    color,
-                    precio,
-                    stock);
+        if(ropa.agregar(
+                codigo,
+                nombre,
+                talla,
+                categoria,
+                color,
+                precio,
+                stock)){
 
             Principal.listaRopa.add(ropa);
-            
+
             Principal.guardarTodasLasPrendas();
 
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Prenda registrada correctamente");
+            JOptionPane.showMessageDialog(this, "Prenda registrada correctamente");
 
-            //Limpia los campos
+            // Limpia los campos
             txtCodigo.setText("");
             txtNombre.setText("");
             txtTalla.setText("");
@@ -239,13 +238,15 @@ public class RegistrarPrenda extends javax.swing.JFrame {
             txtColor.setText("");
             txtPrecio.setText("");
             txtStock.setText("");
+            }
+            else{
 
+                JOptionPane.showMessageDialog(this, "Error: precio o stock inválido");
+            }
         }
         else{
 
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Error: el codigo ya existe");
+            JOptionPane.showMessageDialog(this, "Error: el código ya existe");
         }
         
     }//GEN-LAST:event_btnRegistrarActionPerformed

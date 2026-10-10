@@ -213,24 +213,21 @@ public class ModificarPrenda extends javax.swing.JFrame {
 
             if(r.getCodigo().equalsIgnoreCase(codigo)){
 
-                r.setNombre(txtNombre.getText());
-                r.setTalla(txtTalla.getText());
-                r.setCategoria(txtCategoria.getText());
-                r.setColor(txtColor.getText());
-
-                r.setPrecio(
-                        Double.parseDouble(
-                                txtPrecio.getText()));
+            if(r.agregar(
+                    txtNombre.getText(),
+                    txtTalla.getText(),
+                    txtCategoria.getText(),
+                    txtColor.getText(),
+                    Double.parseDouble(txtPrecio.getText()))){
 
                 modificada = true;
 
                 Principal.guardarTodasLasPrendas();
 
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Prenda modificada correctamente");
+                JOptionPane.showMessageDialog( this, "Prenda modificada correctamente");
+            }
 
-                break;
+            break;
             }
         }
 

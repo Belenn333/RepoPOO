@@ -4,6 +4,7 @@
  */
 package proyectotiendaropa.vistaPrenda;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -52,15 +53,9 @@ public class ListaPrenda extends javax.swing.JFrame {
         // Recorre la lista de prendas
         for(Ropa r : Principal.listaRopa){
 
-            modelo.addRow(new Object[]{
-                r.getCodigo(),
-                r.getNombre(),
-                r.getTalla(),
-                r.getCategoria(),
-                r.getColor(),
-                r.getPrecio(),
-                r.getStock()
-            });
+            modelo.addRow(
+            r.mostrar(true)
+            );
         }
     }
 
@@ -254,32 +249,28 @@ public class ListaPrenda extends javax.swing.JFrame {
         //Limpia la tabla
         modelo.setRowCount(0);
 
+        //Variable que indica si se encontró la prenda
         boolean encontrada = false;
 
         //Recorre todas las prendas registradas
         for(Ropa r : Principal.listaRopa){
 
-            boolean coincide = true;
+            boolean coincide = false;
 
-            //Busca por código si fue ingresado
-            if(!codigo.isEmpty() &&
-               !r.getCodigo().equalsIgnoreCase(codigo)){
-                coincide = false;
+            // Utiliza el método sobrecargado buscar(String codigo)
+            if(!codigo.isEmpty()){
+
+                coincide = r.buscar(codigo);
             }
 
-            //Busca por nombre si fue ingresado
-            if(!nombre.isEmpty() &&
-               !r.getNombre().equalsIgnoreCase(nombre)){
-                coincide = false;
+            // Utiliza el método sobrecargado buscar(String nombre, String color)
+            else if(!nombre.isEmpty() && !color.isEmpty()){
+
+                coincide = r.buscar(nombre, color);
             }
 
-            //Busca por color si fue ingresado
-            if(!color.isEmpty() &&
-               !r.getColor().equalsIgnoreCase(color)){
-                coincide = false;
-            }
-
-            //Si cumple los criterios, lo agrega a la tabla
+            //Si cumple los criterios de búsqueda,
+            //agrega la prenda a la tabla
             if(coincide){
                 modelo.addRow(new Object[]{
                     r.getCodigo(),
@@ -295,13 +286,13 @@ public class ListaPrenda extends javax.swing.JFrame {
             }
         }
 
-        // Si no se encontró ninguna coincidencia
+        //Si no se encontró ninguna coincidencia
         if(!encontrada){
-
-            javax.swing.JOptionPane.showMessageDialog(
+            JOptionPane.showMessageDialog(
                     this,
-                    "Prenda no encontrada");
+                    "Prenda no encontrada.");
         }
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
