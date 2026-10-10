@@ -14,13 +14,16 @@ import proyectotiendaropa.vistaCliente.ListaCliente;
 import proyectotiendaropa.vistaCliente.RegistrarCliente;
 import proyectotiendaropa.vistaventa.ListaVenta;
 import proyectotiendaropa.vistaventa.RegistrarVenta;
+import proyectotiendaropa.vistaCliente.RegistrarCliente;
+import proyectotiendaropa.vistaCliente.ModificarCliente;
+import proyectotiendaropa.vistaCliente.ListaCliente;
 
 /**
  *
  * @author USUARIO
  */
 public class Menu extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu.class.getName());
 
     /**
@@ -142,7 +145,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         RegistrarPrenda frm = new RegistrarPrenda();
         frm.setVisible(true);
-        
+
         //Cierra la ventana actual
         this.dispose();
     }//GEN-LAST:event_miRegistrarMenuActionPerformed
@@ -151,7 +154,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         ModificarPrenda frm = new ModificarPrenda();
         frm.setVisible(true);
-        
+
         //Cierra la ventana actual
         this.dispose();
     }//GEN-LAST:event_miModificarPrendaActionPerformed
@@ -160,7 +163,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         ListaPrenda frm = new ListaPrenda();
         frm.setVisible(true);
-        
+
         //Cierra la ventana actual
         this.dispose();
     }//GEN-LAST:event_miListaPrendaActionPerformed
@@ -182,12 +185,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void opRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opRegistrarVentaActionPerformed
         // TODO add your handling code here:
-        RegistrarVenta frm =
-        new RegistrarVenta(
-                Principal.listaClientes,
-                Principal.listaRopa,
-                Principal.listaAccesorios,
-                Principal.listaVentas);
+        RegistrarVenta frm
+                = new RegistrarVenta(
+                        Principal.listaClientes,
+                        Principal.listaRopa,
+                        Principal.listaAccesorios,
+                        Principal.listaVentas);
 
         frm.setVisible(true);
         this.dispose();
@@ -243,10 +246,13 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbTiendaRopa;
     private javax.swing.JMenuItem miListaAccesorio;
+    private javax.swing.JMenuItem miListaCliente;
     private javax.swing.JMenuItem miListaPrenda;
     private javax.swing.JMenuItem miModificarAccesorio;
+    private javax.swing.JMenuItem miModificarCliente;
     private javax.swing.JMenuItem miModificarPrenda;
     private javax.swing.JMenuItem miRegistrarAccesorio;
+    private javax.swing.JMenuItem miRegistrarCliente;
     private javax.swing.JMenuItem miRegistrarMenu;
     private javax.swing.JMenu mnAccesorios;
     private javax.swing.JMenu mnCliente;
