@@ -126,6 +126,11 @@ public class Ropa {
         return false;
     }
     
+    //Elimina la prenda si el código coincide
+    public boolean eliminar(String codigo){
+        return this.codigo.equalsIgnoreCase(codigo);
+    }
+    
     //Devuelve los datos para la lista
     public Object[] mostrar(boolean tabla){
         return new Object[]{

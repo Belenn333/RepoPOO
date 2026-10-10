@@ -81,7 +81,7 @@ public class ListaPrenda extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         btnRegistrar = new javax.swing.JButton();
-        btnEliminar3 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         lblColor = new javax.swing.JLabel();
         txtColor = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
@@ -137,8 +137,8 @@ public class ListaPrenda extends javax.swing.JFrame {
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(this::btnRegistrarActionPerformed);
 
-        btnEliminar3.setText("Modificar");
-        btnEliminar3.addActionListener(this::btnEliminar3ActionPerformed);
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(this::btnModificarActionPerformed);
 
         lblColor.setText("Color:");
 
@@ -170,7 +170,7 @@ public class ListaPrenda extends javax.swing.JFrame {
                 .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(65, 65, 65))
             .addGroup(layout.createSequentialGroup()
@@ -202,7 +202,7 @@ public class ListaPrenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnEliminar3)
+                        .addComponent(btnModificar)
                         .addComponent(lblNombre)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnLimpiar))
@@ -233,6 +233,49 @@ public class ListaPrenda extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        //Obtiene el código ingresado
+        String codigo = txtCodigo.getText();
+
+        boolean eliminada = false;
+
+        //Solicita confirmación al usuario
+        int opcion = JOptionPane.showConfirmDialog(
+        this,
+        "¿Está seguro de eliminar la prenda?",
+        "Confirmar eliminación",
+        JOptionPane.YES_NO_OPTION);
+
+        //Si el usuario selecciona Sí
+        if(opcion == JOptionPane.YES_OPTION){
+
+            //Recorre la lista de prendas
+            for(int i = 0; i < Principal.listaRopa.size(); i++){
+
+                //Utiliza el método eliminar() de la clase Ropa
+                if(Principal.listaRopa.get(i).eliminar(codigo)){
+
+                    //Elimina la prenda del ArrayList
+                    Principal.listaRopa.remove(i);
+
+                    //Actualiza el archivo txt
+                    Principal.guardarTodasLasPrendas();
+
+                    JOptionPane.showMessageDialog(this, "Prenda eliminada correctamente.");
+
+                    eliminada = true;
+
+                    break;
+                }
+            }
+
+            // Si no encuentra la prenda
+            if(!eliminada){
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Prenda no encontrada.");
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -299,9 +342,10 @@ public class ListaPrenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void btnEliminar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar3ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminar3ActionPerformed
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
@@ -342,8 +386,8 @@ public class ListaPrenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnEliminar3;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
