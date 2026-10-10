@@ -523,7 +523,6 @@ public class Principal {
                             eliminado = true;                      
                         }
                     }
-                    teclado.close();
                     if (!eliminado) {
                         System.out.println("Cliente no encontrado.");
                     }
