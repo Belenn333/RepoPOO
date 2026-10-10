@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Principal {
     
     public static ArrayList<Ropa> listaRopa = new ArrayList<>();
+    public static ArrayList<Cliente> listaClientes = new ArrayList<>();
     
     public static void guardarTodasLasPrendas() {
 
@@ -83,7 +84,7 @@ public class Principal {
         //ArrayList<Ropa> listaRopa = new ArrayList<>();
 
         // ArrayList que almacena los clientes registrados
-        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        
 
         // ArrayList que almacena los accesorios registrados.
         ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
@@ -360,7 +361,7 @@ public class Principal {
                             eliminado = true;                      
                         }
                     }
-                    teclado.close();
+                    
                     if (!eliminado) {
                         System.out.println("Cliente no encontrado.");
                     }
