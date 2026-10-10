@@ -182,7 +182,7 @@ public class Principal {
         ArrayList<Ropa> listaRopa = new ArrayList<>();
 
         // ArrayList que almacena los clientes registrados
-        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        
 
         //ArrayList que almacena los accesorios registrados
         ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
