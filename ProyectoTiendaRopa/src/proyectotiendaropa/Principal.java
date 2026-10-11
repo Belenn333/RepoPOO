@@ -65,9 +65,6 @@ public class Principal {
                 String[] datos = linea.split(";");
 
                 Ropa ropa = new Ropa();
-
-                  Ropa ropa = new Ropa();
-                    
                     ropa.agregar(
                         datos[0], // codigo
                         datos[1], // nombre

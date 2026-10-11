@@ -73,8 +73,10 @@ public class ListaCliente extends javax.swing.JFrame {
         btnVolver.addActionListener(this::btnVolverActionPerformed);
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(this::btnRegistrarActionPerformed);
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(this::btnModificarActionPerformed);
 
         btnEliminar.setText("Eliminar");
 
@@ -281,6 +283,22 @@ public class ListaCliente extends javax.swing.JFrame {
 // Cierra la ventana actual
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+        RegistrarCliente frm = new RegistrarCliente();
+        frm.setLocationRelativeTo(null);
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        ModificarCliente frm = new ModificarCliente();
+        frm.setLocationRelativeTo(null);
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments

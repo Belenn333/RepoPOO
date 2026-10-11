@@ -203,6 +203,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void opModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opModificarClienteActionPerformed
         // TODO add your handling code here:
+        new ModificarCliente().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_opModificarClienteActionPerformed
 
     private void opListaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opListaClienteActionPerformed

@@ -200,7 +200,7 @@ public class ListaVenta extends javax.swing.JFrame {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-                // Abrir el menu principal
+        // Abrir el menu principal
         Menu frm = new Menu();
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
